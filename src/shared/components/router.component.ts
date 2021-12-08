@@ -8,8 +8,8 @@ import { setFocusToTitleForAccessibility } from '@shared/utilities/accessibility
 @Directive()
 // tslint:disable-next-line: directive-class-suffix
 export class RouterComponent {
-  public navigation: Navigation;
-  public currentNavigationItem: NavigationItem;
+  public navigation!: Navigation;
+  public currentNavigationItem: NavigationItem | undefined;
 
   constructor(
     router: Router,
@@ -21,44 +21,27 @@ export class RouterComponent {
       this.navigation = data.navigation;
 
       // Filter alowed routes
-      this.filterNavigationItemsWithPermissions(
-        this.navigation.navigationItems
-      );
+      this.filterNavigationItemsWithPermissions(this.navigation.navigationItems);
 
       router.events.subscribe((event) => {
-        this.setNavigationItemIsActive(
-          router.url,
-          null,
-          this.navigation.navigationItems
-        );
+        this.setNavigationItemIsActive(router.url, null, this.navigation.navigationItems);
         setFocusToTitleForAccessibility();
 
-        this.currentNavigationItem = this.navigation.navigationItems.find(
-          (navigationItem: NavigationItem) => navigationItem.isActive
-        );
+        this.currentNavigationItem = this.navigation.navigationItems.find((navigationItem: NavigationItem) => navigationItem.isActive);
       });
     });
   }
 
   //#region FUNCTIONS
-  private setNavigationItemIsActive(
-    url: string,
-    parentNavigationItem: NavigationItem,
-    navigationItems: NavigationItem[]
-  ): void {
+  private setNavigationItemIsActive(url: string, parentNavigationItem: NavigationItem | null, navigationItems: NavigationItem[]): void {
     navigationItems.forEach((navigationItem: NavigationItem) => {
-      if (
-        parentNavigationItem &&
-        navigationItem.url.indexOf(parentNavigationItem.url) === -1
-      ) {
+      if (parentNavigationItem && navigationItem.url.indexOf(parentNavigationItem.url) === -1) {
         navigationItem.url = parentNavigationItem.url + navigationItem.url;
       }
 
       // Case Home = '/' else
       navigationItem.isActive =
-        (navigationItem.url.length === 1 && url.length === 1) ||
-        (navigationItem.url.length > 1 &&
-          url.indexOf(navigationItem.url) === 0);
+        (navigationItem.url.length === 1 && url.length === 1) || (navigationItem.url.length > 1 && url.indexOf(navigationItem.url) === 0);
 
       if (navigationItem.isActive) {
         this._titleService.setTitle(navigationItem.title + ' - CinéST');
@@ -66,9 +49,7 @@ export class RouterComponent {
     });
   }
 
-  private filterNavigationItemsWithPermissions(
-    navigationItems: NavigationItem[]
-  ): void {
+  private filterNavigationItemsWithPermissions(navigationItems: NavigationItem[]): void {
     const allowedNavigationItems: NavigationItem[] = [];
 
     /* navigationItems.forEach((navigationItem: NavigationItem) => {

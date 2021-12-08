@@ -1,12 +1,10 @@
 export class NavigationItem {
-  public id: number;
-  public parentId: number;
   public name: string;
   public title: string;
   public url: string;
-  public icon: string;
-  public permissionName: string;
-  public children: NavigationItem[];
+  public icon: string | null;
+  public permissionName: string | null;
+  public children: NavigationItem[] | null;
   public isActive?: boolean;
   public isCollapsed?: boolean;
   public isSecondary: boolean;
@@ -15,9 +13,9 @@ export class NavigationItem {
     name: string,
     title: string,
     url: string,
-    icon: string = null,
-    permissionName: string = null,
-    children: NavigationItem[] = null,
+    icon: string | null = null,
+    permissionName: string | null = null,
+    children: NavigationItem[] | null = null,
     isSecondary = false
   ) {
     this.name = name;

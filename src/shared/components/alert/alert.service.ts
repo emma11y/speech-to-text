@@ -16,7 +16,7 @@ export class AlertService {
     this.show(textOrTpl, { classname: 'bg-danger' });
   }
 
-  public remove(toast): void {
+  public remove(toast: any): void {
     this.toasts = this.toasts.filter((t) => t !== toast);
   }
 }

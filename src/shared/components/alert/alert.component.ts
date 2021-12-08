@@ -6,7 +6,7 @@ import { AlertService } from './alert.service';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
   // tslint:disable-next-line:no-host-metadata-property
-  host: { '[class.ngb-toasts]': 'true' }
+  host: { '[class.ngb-toasts]': 'true' },
 })
 export class AlertComponent implements OnInit {
   constructor(public alertService: AlertService) {}
@@ -20,7 +20,7 @@ export class AlertComponent implements OnInit {
   //#endregion
 
   //#region FUNCTIONS
-  public isTemplate(toast): any {
+  public isTemplate(toast: any): any {
     return toast.textOrTpl instanceof TemplateRef;
   }
   //#endregion

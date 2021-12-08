@@ -7,7 +7,7 @@ import { Navigation } from 'src/shared/models/navigation/navigation';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() public navigation: Navigation;
+  @Input() public navigation!: Navigation;
 
   constructor() {}
 
