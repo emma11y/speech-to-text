@@ -8,9 +8,9 @@ import { RouterComponent } from 'src/shared/components/router.component';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent extends RouterComponent implements OnInit {
+export class LayoutComponent /* extends RouterComponent*/ implements OnInit {
   constructor(router: Router, route: ActivatedRoute, title: Title) {
-    super(router, route, title);
+    //   super(router, route, title);
   }
 
   //#region LIFE CYCLES

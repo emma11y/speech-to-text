@@ -1,3 +1,4 @@
+import { TtsComponent } from './pages/tts/tts.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Navigation } from '@shared/models/navigation/navigation';
@@ -12,13 +13,14 @@ const routes: Routes = [
 
       ]),
       breadcrumb: 'Accueil',
-    },
+    },*/
     children: [
       {
         path: '',
-        loadChildren: () => import('./public/public.module').then((m) => m.PublicModule),
+        component: TtsComponent,
+        //loadChildren: () => import('./public/public.module').then((m) => m.PublicModule),
       },
-    ],*/
+    ],
   },
 ];
 
