@@ -16,10 +16,28 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@node_modules/*": ["./node_modules/*"],
+      "@app/*": ["./src/app/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@environments/*": ["./src/environments/*"],
+      "@settings/*": ["./src/settings/*"],
+      "@core/*": ["./src/core/*"],
+      "@guards/*": ["./src/core/guards/*"],
+      "@interceptors/*": ["./src/core/interceptors/*"],
+      "@resolvers/*": ["./src/core/resolvers/*"],
+      "@serializer/*": ["./src/core/serializer/*"],
+      "@services/*": ["./src/core/services/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@components/*": ["./src/shared/components/*"],
+      "@directives/*": ["./src/shared/directives/*"],
+      "@dtos/*": ["./src/shared/dtos/*"],
+      "@models/*": ["./src/shared/models/*"],
+      "@enums/*": ["./src/shared/enums/*"],
+      "@pipes/*": ["./src/shared/pipes/*"],
+      "@utilities/*": ["./src/shared/utilities/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
