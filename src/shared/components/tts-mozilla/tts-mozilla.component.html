@@ -1,5 +1,5 @@
 <div class="tts-mozilla-component">
-  <button class="btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer</button>
-  <button class="btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter</button>
+  <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer</button>
+  <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter</button>
   <div #pTranscript></div>
 </div>
