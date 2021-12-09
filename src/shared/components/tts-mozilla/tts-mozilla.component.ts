@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { compareText } from '@shared/utilities/string.utility';
 
 declare var webkitSpeechRecognition: any;
 
@@ -9,11 +10,13 @@ declare var webkitSpeechRecognition: any;
 })
 export class TtsMozillaComponent implements OnInit {
   private recognition: any;
-  // private pTranscript: HTMLElement | null = null;
 
-  @ViewChild('pTranscript', { static: true }) pTranscript: HTMLElement | undefined;
+  @ViewChild('pTranscriptMozilla', { static: true }) pTranscript: HTMLElement | undefined;
 
   public isRecording: boolean = false;
+  public textToSpeech: string = '';
+  public transcript: string = '';
+  public resultSpeechToText: number = 0;
 
   constructor() {}
 
@@ -31,17 +34,19 @@ export class TtsMozillaComponent implements OnInit {
   }
 
   public onRecognitionResult(event: any, transcriptElement: any): void {
-    const transcript = Array.from(event.results)
+    this.transcript = Array.from(event.results)
       .map((result: any) => result[0])
       .map((result: any) => result.transcript)
       .join('');
 
-    if (transcriptElement) transcriptElement.nativeElement.innerText = transcript;
+    if (transcriptElement) transcriptElement.nativeElement.innerText = this.transcript;
   }
 
   public onStopRecognitionClick(event: any): void {
+    event.preventDefault();
     this.recognition.stop();
     this.isRecording = false;
+    this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
   }
   //#endregion
 

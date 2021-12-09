@@ -1,5 +1,11 @@
 <div class="tts-mozilla-component">
-  <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer</button>
-  <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter</button>
-  <div #pTranscript></div>
+  <div class="row m-5">
+    <textarea rows="5" [(ngModel)]="textToSpeech"></textarea>
+  </div>
+  <div class="row w-50 m-auto">
+    <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer Mozilla</button>
+    <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter Mozilla</button>
+  </div>
+  <div class="row m-5" #pTranscriptMozilla></div>
+  <div class="row d-block text-center">{{ resultSpeechToText }} % de réussite</div>
 </div>

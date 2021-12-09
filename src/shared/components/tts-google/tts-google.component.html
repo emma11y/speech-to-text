@@ -1,0 +1,5 @@
+<div class="tts-google-component">
+  <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer Google</button>
+  <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter Google</button>
+  <div #pTranscriptGoogle></div>
+</div>
