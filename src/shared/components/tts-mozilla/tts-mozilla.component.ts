@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AppConfig } from '@core/app-config';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { compareText } from '@shared/utilities/string.utility';
 
 declare var webkitSpeechRecognition: any;
@@ -9,12 +10,12 @@ declare var webkitSpeechRecognition: any;
   styleUrls: ['./tts-mozilla.component.scss'],
 })
 export class TtsMozillaComponent implements OnInit {
+  @Input() public textToSpeech: string = '';
+
   private recognition: any;
 
   @ViewChild('pTranscriptMozilla', { static: true }) pTranscript: HTMLElement | undefined;
 
-  public isRecording: boolean = false;
-  public textToSpeech: string = '';
   public transcript: string = '';
   public resultSpeechToText: number = 0;
 
@@ -28,9 +29,8 @@ export class TtsMozillaComponent implements OnInit {
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
-    event.preventDefault();
+    this.resultSpeechToText = 0;
     this.recognition.start();
-    this.isRecording = true;
   }
 
   public onRecognitionResult(event: any, transcriptElement: any): void {
@@ -43,9 +43,7 @@ export class TtsMozillaComponent implements OnInit {
   }
 
   public onStopRecognitionClick(event: any): void {
-    event.preventDefault();
     this.recognition.stop();
-    this.isRecording = false;
     this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
   }
   //#endregion
@@ -53,7 +51,7 @@ export class TtsMozillaComponent implements OnInit {
   //#region FUNCTIONS
   public initRecognition(): void {
     this.recognition = new webkitSpeechRecognition();
-    this.recognition.lang = 'fr-FR';
+    this.recognition.lang = AppConfig.appSettings.language;
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
     this.recognition.addEventListener('result', (e: any) => this.onRecognitionResult(e, this.pTranscript));

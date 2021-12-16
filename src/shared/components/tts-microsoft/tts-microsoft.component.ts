@@ -1,5 +1,5 @@
 import { AppConfig } from '@core/app-config';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
@@ -9,6 +9,7 @@ import {
   SpeechRecognitionEventArgs,
   SpeechRecognizer,
 } from 'microsoft-cognitiveservices-speech-sdk';
+import { compareText } from '@shared/utilities/string.utility';
 
 //https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
@@ -18,14 +19,14 @@ import {
   styleUrls: ['./tts-microsoft.component.scss'],
 })
 export class TtsMicrosoftComponent implements OnInit {
+  @Input() public textToSpeech: string = '';
+
   private recognizer!: SpeechRecognizer;
   private privOffset: number = 0;
   private transcriptFinal: string = '';
 
   @ViewChild('pTranscriptMicrosoft', { static: true }) pTranscript: HTMLElement | undefined;
 
-  public isRecording: boolean = false;
-  public textToSpeech: string = '';
   public transcript: string = '';
   public resultSpeechToText: number = 0;
 
@@ -39,11 +40,10 @@ export class TtsMicrosoftComponent implements OnInit {
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
-    // event.preventDefault();
+    this.resultSpeechToText = 0;
     this.privOffset = 0;
     this.transcriptFinal = '';
     this.recognizer.startContinuousRecognitionAsync();
-    this.isRecording = true;
   }
 
   public onRecognitionResult(event: SpeechRecognitionEventArgs, transcriptElement: any): void {
@@ -83,7 +83,8 @@ export class TtsMicrosoftComponent implements OnInit {
   public onStopRecognitionClick(event: any): void {
     // event.preventDefault();
     this.recognizer.stopContinuousRecognitionAsync();
-    this.isRecording = false;
+    // this.isRecording = false;
+    this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
   }
   //#endregion
 

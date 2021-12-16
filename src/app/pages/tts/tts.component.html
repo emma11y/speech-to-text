@@ -1,5 +1,21 @@
 <div class="tts-component">
-  <!-- <app-tts-mozilla></app-tts-mozilla>-->
-  <!-- <app-tts-google></app-tts-google>-->
-  <app-tts-microsoft></app-tts-microsoft>
+  <h1>Speech-To-Text</h1>
+  <div class="row m-5">
+    <textarea rows="5" [(ngModel)]="textToSpeech"></textarea>
+  </div>
+  <div class="row w-50 m-auto">
+    <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer</button>
+    <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter</button>
+  </div>
+  <div class="row mt-5">
+    <div class="col">
+      <app-tts-mozilla [textToSpeech]="textToSpeech" #TtsMozilla></app-tts-mozilla>
+    </div>
+    <div class="col">
+      <!-- <app-tts-google></app-tts-google>-->
+    </div>
+    <div class="col">
+      <app-tts-microsoft [textToSpeech]="textToSpeech" #TtsMicrosoft></app-tts-microsoft>
+    </div>
+  </div>
 </div>
