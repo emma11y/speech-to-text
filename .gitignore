@@ -43,12 +43,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-.angular/cache/angular-webpack/c19d2a44ca7d723493fb14a286c2162537843d4a/0.pack
 *.pack
 *.old
-.angular/cache/babel-webpack/240b498a3405d4c0275c9e34c9ebc052.json
-.angular/cache/babel-webpack/3c5630f649d9cc4f131c1d85434294a6.json
-.angular/cache/babel-webpack/4baebafea10b41c085eb1b559f4c169e.json
-.angular/cache/babel-webpack/73f2524278513c51080c09e14ed2e9d1.json
-.angular/cache/babel-webpack/bbdf796f65dbc4a5bb56735d7cb3fc45.json
-.angular/cache/babel-webpack/c6243f784995d123d40cae4e2e573d26.json
+.angular/cache/*.json
+.angular/cache/babel-webpack/*.json
+src/settings/app-config.local.json

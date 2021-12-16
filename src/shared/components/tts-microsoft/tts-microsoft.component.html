@@ -1,0 +1,5 @@
+<div class="tts-microsoft-component">
+  <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer Microsoft</button>
+  <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter Microsoft</button>
+  <div #pTranscriptMicrosoft></div>
+</div>

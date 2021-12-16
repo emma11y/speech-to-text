@@ -17,7 +17,7 @@ export function compareText(text1: string, text2: string): number {
   const wordsText2: string[] = text2.toLowerCase().split(' ');
 
   wordsText2.forEach((word) => {
-    const index = wordsText1.findIndex((x) => x.includes(word));
+    const index = wordsText1.findIndex((x) => x === word);
     if (index !== -1) wordsText1.splice(index, 1);
   });
 
