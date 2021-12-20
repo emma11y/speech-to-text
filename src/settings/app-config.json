@@ -1,6 +1,7 @@
 {
   "appBaseUrl": "http://localhost:4200",
   "language": "fr-FR",
+  "interimResults": true,
   "microsoft": {
     "apiKey": "",
     "location": ""

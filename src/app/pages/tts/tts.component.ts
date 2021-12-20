@@ -14,6 +14,10 @@ export class TtsComponent implements OnInit {
   public textToSpeech: string = '';
   public isRecording: boolean = false;
 
+  public isMozillaEnabled: boolean = true;
+  public isMicrosoftEnabled: boolean = true;
+  public isGoogleEnabled: boolean = true;
+
   constructor() {}
 
   //#region LIFE CYCLES
@@ -23,14 +27,14 @@ export class TtsComponent implements OnInit {
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
     this.isRecording = true;
-    this.ttsMozilla.onStartRecognitionClick(event);
-    this.ttsMicrosoft.onStartRecognitionClick(event);
+    if (this.isMozillaEnabled) this.ttsMozilla.onStartRecognitionClick(event);
+    if (this.isMicrosoftEnabled) this.ttsMicrosoft.onStartRecognitionClick(event);
   }
 
   public onStopRecognitionClick(event: any): void {
     this.isRecording = false;
-    this.ttsMozilla.onStopRecognitionClick(event);
-    this.ttsMicrosoft.onStopRecognitionClick(event);
+    if (this.isMozillaEnabled) this.ttsMozilla.onStopRecognitionClick(event);
+    if (this.isMicrosoftEnabled) this.ttsMicrosoft.onStopRecognitionClick(event);
   }
   //#endregion
 

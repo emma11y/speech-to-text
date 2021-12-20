@@ -1,6 +1,20 @@
 <div class="tts-component">
   <h1>Speech-To-Text</h1>
   <div class="row m-5">
+    <p>Paramètres</p>
+    <fieldset>
+      <legend class="title-gp">Activer le Speech-To-Text de :</legend>
+      <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isMozillaEnabled" id="chkMozilla" />
+      <label for="chkMozilla">Mozilla</label>
+      <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isGoogleEnabled" id="chkGoogle" /><label for="chkGoogle"
+        >Google</label
+      >
+      <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isMicrosoftEnabled" id="chkMicrosoft" /><label for="chkMicrosoft"
+        >Microsoft</label
+      >
+    </fieldset>
+  </div>
+  <div class="row m-5">
     <textarea rows="5" [(ngModel)]="textToSpeech"></textarea>
   </div>
   <div class="row w-50 m-auto">
@@ -8,13 +22,13 @@
     <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter</button>
   </div>
   <div class="row mt-5">
-    <div class="col">
+    <div class="col" *ngIf="isMozillaEnabled">
       <app-tts-mozilla [textToSpeech]="textToSpeech" #TtsMozilla></app-tts-mozilla>
     </div>
-    <div class="col">
-      <!-- <app-tts-google></app-tts-google>-->
+    <div class="col" *ngIf="isGoogleEnabled">
+      <!-- <app-tts-google [textToSpeech]="textToSpeech" #TtsGoogle></app-tts-google>-->
     </div>
-    <div class="col">
+    <div class="col" *ngIf="isMicrosoftEnabled">
       <app-tts-microsoft [textToSpeech]="textToSpeech" #TtsMicrosoft></app-tts-microsoft>
     </div>
   </div>

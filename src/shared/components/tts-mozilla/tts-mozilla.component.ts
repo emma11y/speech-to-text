@@ -53,7 +53,7 @@ export class TtsMozillaComponent implements OnInit {
     this.recognition = new webkitSpeechRecognition();
     this.recognition.lang = AppConfig.appSettings.language;
     this.recognition.continuous = true;
-    this.recognition.interimResults = true;
+    this.recognition.interimResults = AppConfig.appSettings.interimResults;
     this.recognition.addEventListener('result', (e: any) => this.onRecognitionResult(e, this.pTranscript));
   }
   //#endregion

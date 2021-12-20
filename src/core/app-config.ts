@@ -6,6 +6,7 @@ export class AppConfig {
 export interface AppSettings {
   appBaseUrl: string;
   language: string;
+  interimResults: boolean;
   microsoft: {
     apiKey: string;
     location: string;

@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-//import { SpeechClient } from '@google-cloud/speech';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AppConfig } from '@core/app-config';
+import { SpeechClient } from '@google-cloud/speech';
+import { compareText } from '@shared/utilities/string.utility';
 
 // Documentation : https://github.com/googleapis/nodejs-speech/blob/main/samples/infiniteStreaming.js
 
@@ -9,18 +11,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./tts-google.component.scss'],
 })
 export class TtsGoogleComponent implements OnInit {
-  constructor() {}
-
-  //#region LIFE CYCLES
-  public ngOnInit(): void {}
-  //#endregion
-  /* private recognition!: SpeechClient;
-  private recognizeStream: any;
-
+  @Input() public textToSpeech: string = '';
   @ViewChild('pTranscriptGoogle', { static: true }) pTranscript: HTMLElement | undefined;
 
-  public isRecording: boolean = false;
+  private recognition!: SpeechClient;
+  private recognizeStream: any;
+
   public transcript: string = '';
+  public resultSpeechToText: number = 0;
 
   constructor() {}
 
@@ -39,6 +37,8 @@ export class TtsGoogleComponent implements OnInit {
     this.recognizeStream.end();
     this.recognizeStream.removeListener('data', this.speechCallback);
     this.recognizeStream = null;
+
+    this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
   }
   //#endregion
 
@@ -53,8 +53,8 @@ export class TtsGoogleComponent implements OnInit {
     const request = {
       encoding: 'LINEAR16',
       sampleRateHertz: 16000,
-      languageCode: 'fr-FR',
-      interimResults: true,
+      languageCode: AppConfig.appSettings.language,
+      interimResults: AppConfig.appSettings.interimResults,
     };
 
     this.recognizeStream = this.recognition
@@ -66,7 +66,7 @@ export class TtsGoogleComponent implements OnInit {
           console.error('API request error ' + err);
         }
       })
-      .on('data', (e) => this.speechCallback(e, this.pTranscript));
+      .on('data', (e: any) => this.speechCallback(e, this.pTranscript));
   }
 
   public speechCallback(event: any, transcriptElement: any): void {
@@ -78,5 +78,4 @@ export class TtsGoogleComponent implements OnInit {
     if (transcriptElement) transcriptElement.nativeElement.innerText = this.transcript;
   }
   //#endregion
-  */
 }
