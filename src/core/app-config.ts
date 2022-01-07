@@ -11,4 +11,10 @@ export interface AppSettings {
     apiKey: string;
     location: string;
   };
+  google: {
+    projectId: string;
+  };
+  deepgram: {
+    apiKey: string;
+  };
 }

@@ -5,5 +5,11 @@
   "microsoft": {
     "apiKey": "",
     "location": ""
+  },
+  "google": {
+    "projectId": ""
+  },
+  "deepgram": {
+    "apiKey": ""
   }
 }

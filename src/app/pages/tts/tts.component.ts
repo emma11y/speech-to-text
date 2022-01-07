@@ -1,5 +1,6 @@
-import { TtsMicrosoftComponent } from '@shared/components/tts-microsoft/tts-microsoft.component';
-import { TtsMozillaComponent } from '@shared/components/tts-mozilla/tts-mozilla.component';
+import { TtsDeepgramComponent } from '@shared/components/text-to-speech/tts-deepgram/tts-deepgram.component';
+import { TtsMicrosoftComponent } from '@shared/components/text-to-speech/tts-microsoft/tts-microsoft.component';
+import { TtsMozillaComponent } from '@shared/components/text-to-speech/tts-mozilla/tts-mozilla.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
@@ -10,6 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class TtsComponent implements OnInit {
   @ViewChild('TtsMozilla', { static: true }) public ttsMozilla!: TtsMozillaComponent;
   @ViewChild('TtsMicrosoft', { static: true }) public ttsMicrosoft!: TtsMicrosoftComponent;
+  @ViewChild('TtsDeepgram', { static: true }) public ttsDeepgram!: TtsDeepgramComponent;
 
   public textToSpeech: string = '';
   public isRecording: boolean = false;
@@ -17,6 +19,7 @@ export class TtsComponent implements OnInit {
   public isMozillaEnabled: boolean = true;
   public isMicrosoftEnabled: boolean = true;
   public isGoogleEnabled: boolean = true;
+  public isDeepgramEnabled: boolean = true;
 
   constructor() {}
 
@@ -29,12 +32,14 @@ export class TtsComponent implements OnInit {
     this.isRecording = true;
     if (this.isMozillaEnabled) this.ttsMozilla.onStartRecognitionClick(event);
     if (this.isMicrosoftEnabled) this.ttsMicrosoft.onStartRecognitionClick(event);
+    if (this.isDeepgramEnabled) this.ttsDeepgram.onStartRecognitionClick(event);
   }
 
   public onStopRecognitionClick(event: any): void {
     this.isRecording = false;
     if (this.isMozillaEnabled) this.ttsMozilla.onStopRecognitionClick(event);
     if (this.isMicrosoftEnabled) this.ttsMicrosoft.onStopRecognitionClick(event);
+    if (this.isDeepgramEnabled) this.ttsDeepgram.onStopRecognitionClick(event);
   }
   //#endregion
 
