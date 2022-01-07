@@ -10,6 +10,11 @@ import {
   SpeechRecognizer,
 } from 'microsoft-cognitiveservices-speech-sdk';
 import { compareText } from '@shared/utilities/string.utility';
+import { SubjectMessageService } from '@core/services/subject-message.service';
+import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
+import { SubjectMessage } from '@shared/models/subject-message';
+import { filter } from 'rxjs/operators';
+import { TextToSpeechComponent } from '../text-to-speech.component';
 
 //https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
@@ -18,19 +23,31 @@ import { compareText } from '@shared/utilities/string.utility';
   templateUrl: './tts-microsoft.component.html',
   styleUrls: ['./tts-microsoft.component.scss'],
 })
-export class TtsMicrosoftComponent implements OnInit {
-  @Input() public textToSpeech: string = '';
-
+export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnInit {
   private recognizer!: SpeechRecognizer;
   private privOffset: number = 0;
   private transcriptFinal: string = '';
 
   @ViewChild('pTranscriptMicrosoft', { static: true }) pTranscript: HTMLElement | undefined;
 
-  public transcript: string = '';
-  public resultSpeechToText: number = 0;
-
-  constructor() {}
+  constructor(private readonly _subjectMessageService: SubjectMessageService) {
+    super();
+    this._subjectMessageService.subject
+      .pipe(
+        filter(
+          (subjectMessage: SubjectMessage) =>
+            subjectMessage.type === SubjectMessageTypeEnum.START_MICROSOFT || subjectMessage.type === SubjectMessageTypeEnum.STOP_MICROSOFT
+        )
+      )
+      .subscribe((subjectMessage: SubjectMessage) => {
+        const event = subjectMessage.message;
+        if (subjectMessage.type === SubjectMessageTypeEnum.START_MICROSOFT) {
+          this.onStartRecognitionClick(event);
+        } else {
+          this.onStopRecognitionClick(event);
+        }
+      });
+  }
 
   //#region LIFE CYCLES
   public ngOnInit(): void {
@@ -84,7 +101,7 @@ export class TtsMicrosoftComponent implements OnInit {
     // event.preventDefault();
     this.recognizer.stopContinuousRecognitionAsync();
     // this.isRecording = false;
-    this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
+    super.onStopRecognitionClick(event);
   }
   //#endregion
 

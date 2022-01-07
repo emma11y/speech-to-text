@@ -1,7 +1,12 @@
+import { SubjectMessageService } from '@core/services/subject-message.service';
+import { TextToSpeechComponent } from './../text-to-speech.component';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AppConfig } from '@core/app-config';
 import { SpeechClient } from '@google-cloud/speech';
 import { compareText } from '@shared/utilities/string.utility';
+import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
+import { SubjectMessage } from '@shared/models/subject-message';
+import { filter } from 'rxjs/operators';
 
 // https://github.com/googleapis/nodejs-speech
 // Documentation : https://github.com/googleapis/nodejs-speech/blob/main/samples/infiniteStreaming.js
@@ -17,26 +22,35 @@ import { compareText } from '@shared/utilities/string.utility';
   templateUrl: './tts-google.component.html',
   styleUrls: ['./tts-google.component.scss'],
 })
-export class TtsGoogleComponent implements OnInit {
-  constructor() {}
-
-  //#region LIFE CYCLES
-  public ngOnInit(): void {}
-  //#endregion
-}
-
-/*
-  @Input() public textToSpeech: string = '';
+export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit {
   @ViewChild('pTranscriptGoogle', { static: true }) pTranscript: HTMLElement | undefined;
 
-  private recognition!: SpeechClient;
+  private recognition: SpeechClient;
   private recognizeStream: any;
 
-  public transcript: string = '';
-  public resultSpeechToText: number = 0;
+  constructor(private _subjectMessageService: SubjectMessageService) {
+    super();
 
-  constructor() {}
+    this._subjectMessageService.subject
+      .pipe(
+        filter(
+          (subjectMessage: SubjectMessage) =>
+            subjectMessage.type === SubjectMessageTypeEnum.START_GOOGLE || subjectMessage.type === SubjectMessageTypeEnum.STOP_GOOGLE
+        )
+      )
+      .subscribe((subjectMessage: SubjectMessage) => {
+        const event = subjectMessage.message;
+        if (subjectMessage.type === SubjectMessageTypeEnum.START_GOOGLE) {
+          this.onStartRecognitionClick(event);
+        } else {
+          this.onStopRecognitionClick(event);
+        }
+      });
+  }
 
+  public ngOnInit(): void {}
+}
+/*
   //#region LIFE CYCLES
   public ngOnInit(): void {
     this.recognition = new SpeechClient({
@@ -94,7 +108,7 @@ export class TtsGoogleComponent implements OnInit {
     if (transcriptElement) transcriptElement.nativeElement.innerText = this.transcript;
   }
   //#endregion
-}
+}*/
 
 /*postTranscription(blob) {
     this.showLoader();

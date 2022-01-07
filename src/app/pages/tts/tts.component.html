@@ -12,6 +12,9 @@
       <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isMicrosoftEnabled" id="chkMicrosoft" /><label for="chkMicrosoft"
         >Microsoft</label
       >
+      <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isDeepgramEnabled" id="chkDeepgram" /><label for="chkDeepgram"
+        >Deepgram</label
+      >
     </fieldset>
   </div>
   <div class="row m-5">
@@ -23,13 +26,16 @@
   </div>
   <div class="row mt-5">
     <div class="col" *ngIf="isMozillaEnabled">
-      <app-tts-mozilla [textToSpeech]="textToSpeech" #TtsMozilla></app-tts-mozilla>
+      <app-tts-mozilla [textToSpeech]="textToSpeech"></app-tts-mozilla>
     </div>
     <div class="col" *ngIf="isGoogleEnabled">
-      <!-- <app-tts-google [textToSpeech]="textToSpeech" #TtsGoogle></app-tts-google>-->
+      <!-- <app-tts-google [textToSpeech]="textToSpeech"></app-tts-google>-->
     </div>
     <div class="col" *ngIf="isMicrosoftEnabled">
-      <app-tts-microsoft [textToSpeech]="textToSpeech" #TtsMicrosoft></app-tts-microsoft>
+      <app-tts-microsoft [textToSpeech]="textToSpeech"></app-tts-microsoft>
+    </div>
+    <div class="col" *ngIf="isDeepgramEnabled">
+      <app-tts-deepgram [textToSpeech]="textToSpeech"></app-tts-deepgram>
     </div>
   </div>
 </div>

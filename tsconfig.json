@@ -1,25 +1,24 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "declaration": false,
     "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "lib": ["es6", "dom"],
+    "mapRoot": "./",
+    "module": "esnext",
+    "skipLibCheck": true,
     "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
-    "lib": ["es2018", "dom"],
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "target": "es2015",
+    "typeRoots": ["./node_modules/@types"],
+    "baseUrl": "./",
     "paths": {
+      "@abp/*": ["./node_modules/abp-ng2-module/dist/./*"],
       "@node_modules/*": ["./node_modules/*"],
       "@app/*": ["./src/app/*"],
       "@assets/*": ["./src/assets/*"],
@@ -38,13 +37,8 @@
       "@models/*": ["./src/shared/models/*"],
       "@enums/*": ["./src/shared/enums/*"],
       "@pipes/*": ["./src/shared/pipes/*"],
-      "@utilities/*": ["./src/shared/utilities/*"]
+      "@utilities/*": ["./src/shared/utilities/*"],
+      "@referentiels/*": ["./src/referentiels/*"]
     }
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
   }
 }

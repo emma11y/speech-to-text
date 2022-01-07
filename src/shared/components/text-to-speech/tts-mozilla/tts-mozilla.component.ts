@@ -1,6 +1,11 @@
+import { TextToSpeechComponent } from './../text-to-speech.component';
 import { AppConfig } from '@core/app-config';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { compareText } from '@shared/utilities/string.utility';
+import { SubjectMessage } from '@shared/models/subject-message';
+import { SubjectMessageService } from '@core/services/subject-message.service';
+import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
+import { filter } from 'rxjs/operators';
 
 declare var webkitSpeechRecognition: any;
 
@@ -9,17 +14,28 @@ declare var webkitSpeechRecognition: any;
   templateUrl: './tts-mozilla.component.html',
   styleUrls: ['./tts-mozilla.component.scss'],
 })
-export class TtsMozillaComponent implements OnInit {
-  @Input() public textToSpeech: string = '';
-
+export class TtsMozillaComponent extends TextToSpeechComponent implements OnInit {
   private recognition: any;
 
   @ViewChild('pTranscriptMozilla', { static: true }) pTranscript: HTMLElement | undefined;
-
-  public transcript: string = '';
-  public resultSpeechToText: number = 0;
-
-  constructor() {}
+  constructor(private readonly _subjectMessageService: SubjectMessageService) {
+    super();
+    this._subjectMessageService.subject
+      .pipe(
+        filter(
+          (subjectMessage: SubjectMessage) =>
+            subjectMessage.type === SubjectMessageTypeEnum.START_MOZILLA || subjectMessage.type === SubjectMessageTypeEnum.STOP_MOZILLA
+        )
+      )
+      .subscribe((subjectMessage: SubjectMessage) => {
+        const event = subjectMessage.message;
+        if (subjectMessage.type === SubjectMessageTypeEnum.START_MOZILLA) {
+          this.onStartRecognitionClick(event);
+        } else {
+          this.onStopRecognitionClick(event);
+        }
+      });
+  }
 
   //#region LIFE CYCLES
   public ngOnInit(): void {
@@ -44,7 +60,7 @@ export class TtsMozillaComponent implements OnInit {
 
   public onStopRecognitionClick(event: any): void {
     this.recognition.stop();
-    this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
+    super.onStopRecognitionClick(event);
   }
   //#endregion
 
