@@ -57,7 +57,6 @@ export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnIn
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
-    this.resultSpeechToText = 0;
     this.privOffset = 0;
     this.transcriptFinal = '';
     this.recognizer.startContinuousRecognitionAsync();

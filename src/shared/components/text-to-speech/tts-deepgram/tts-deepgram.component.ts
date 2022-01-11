@@ -1,13 +1,12 @@
 import { AppConfig } from '@core/app-config';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Deepgram } from '@deepgram/sdk';
 import { LiveTranscriptionOptions } from '@deepgram/sdk/dist/types';
-import { LiveTranscription } from '@deepgram/sdk/dist/transcription/liveTranscription';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
 import { TextToSpeechComponent } from '@shared/components/text-to-speech/text-to-speech.component';
+import * as queryString from 'query-string';
 
 @Component({
   selector: 'app-tts-deepgram',
@@ -34,63 +33,77 @@ export class TtsDeepgramComponent extends TextToSpeechComponent implements OnIni
       });
   }
 
-  private recognition!: Deepgram;
-  private mediaRecorder!: MediaRecorder;
+  private mediaRecorder: MediaRecorder;
+  private socket: WebSocket;
+  private start: number;
+  private transcriptFinal: string = '';
 
   @ViewChild('pTranscriptDeepgram', { static: true }) pTranscript: HTMLElement | undefined;
 
   //#region LIFE CYCLES
-  public ngOnInit(): void {
-    this.initRecognition();
-  }
+  public ngOnInit(): void {}
   //#endregion
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      this.mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm',
-      });
-
-      const options: LiveTranscriptionOptions = {
-        language: AppConfig.appSettings.language,
-        version: 'latest',
-        interim_results: AppConfig.appSettings.interimResults,
-      };
-
-      const deepgramSocket: LiveTranscription = this.recognition.transcription.live(options);
-
-      deepgramSocket.addListener('open', () => {
-        this.mediaRecorder.addEventListener('dataavailable', async (event) => {
-          if (event.data.size > 0 && deepgramSocket.getReadyState() == 1) {
-            deepgramSocket.send(event.data);
-          }
-        });
-        this.mediaRecorder.start();
-      });
-
-      deepgramSocket.addListener('transcriptReceived', (e: any) => this.onRecognitionResult(e, this.pTranscript));
-    });
+    this.start = 0;
+    this.transcriptFinal = '';
+    this.initRecognition();
   }
 
   public onRecognitionResult(event: any, transcriptElement: any): void {
-    console.log(event);
+    const data = JSON.parse(event.data);
 
-    /*   const transcript = received.channel.alternatives[0].transcript;
-    if (transcript && received.is_final) {
-      console.log(transcript);
-    }*/
+    if (data.start !== this.start) {
+      this.start = data.start;
+      this.transcriptFinal += `${this.transcript} `;
+    }
+
+    this.transcript = data.channel.alternatives[0].transcript;
+
+    if (transcriptElement) transcriptElement.nativeElement.innerText = this.transcriptFinal + this.transcript;
   }
 
   public onStopRecognitionClick(event: any): void {
     this.mediaRecorder.stop();
+    this.socket.close();
     super.onStopRecognitionClick(event);
   }
   //#endregion
 
   //#region FUNCTIONS
   public initRecognition(): void {
-    this.recognition = new Deepgram(AppConfig.appSettings.deepgram.apiKey, 'localhost:4201');
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      this.mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'audio/webm',
+      });
+
+      // https://www.twitch.tv/videos/1260139238
+      const options: LiveTranscriptionOptions = {
+        language: 'fr',
+        version: 'latest',
+        interim_results: AppConfig.appSettings.interimResults,
+      };
+
+      this.socket = new WebSocket('wss://api.deepgram.com/v1/listen?' + queryString.stringify(options), [
+        'token',
+        AppConfig.appSettings.deepgram.apiKey,
+      ]);
+
+      this.socket.onopen = () => {
+        this.mediaRecorder.addEventListener('dataavailable', async (event) => {
+          if (event.data.size > 0 && this.socket.readyState === 1) {
+            this.socket.send(event.data);
+          }
+        });
+
+        this.mediaRecorder.start(1);
+      };
+
+      this.socket.onmessage = (message) => {
+        this.onRecognitionResult(message, this.pTranscript);
+      };
+    });
   }
   //#endregion
 }
