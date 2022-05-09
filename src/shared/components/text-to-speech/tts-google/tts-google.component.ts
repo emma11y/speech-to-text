@@ -34,7 +34,7 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
         if (subjectMessage.type === SubjectMessageTypeEnum.START_GOOGLE) {
           this.onStartRecognitionClick(event);
         } else {
-          this.onStopRecognitionClick(event);
+          this.onStopRecognitionClick();
         }
       });
   }
@@ -45,6 +45,8 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
+    super.onStartRecognitionClick(event);
+    this.setTranscriptText(this.pTranscript, '');
     this.initRecognition();
   }
 
@@ -63,10 +65,9 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
       };
 
       let xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://speech.googleapis.com/v1/speech:recognize?key=' + AppConfig.appSettings.google.apiKey, true);
+      xhr.open('POST', `https://speech.googleapis.com/v1/speech:recognize?key=${AppConfig.appSettings.google.apiKey}`, true);
       xhr.onload = () => {
         let response = JSON.parse(xhr.responseText);
-        console.log('response', response);
         if (
           response &&
           response.results &&
@@ -75,10 +76,12 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
           response.results[0].alternatives[0] &&
           response.results[0].alternatives[0].transcript
         ) {
-          let text = response.results[0].alternatives[0].transcript || '';
-          transcriptElement.nativeElement.innerText = text;
+          this.transcript = response.results[0].alternatives[0].transcript;
+          this.setTranscriptText(transcriptElement, this.transcript);
+          this.compareText();
         }
       };
+
       xhr.onerror = () => {
         console.error('Error occurred during Cloud Speech AJAX request.');
       };
@@ -86,17 +89,14 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
     });
   }
 
-  public onStopRecognitionClick(event: any): void {
+  public onStopRecognitionClick(): void {
     this.mediaRecorder.stop();
 
     this.mediaRecorder.ondataavailable = async (event: BlobEvent) => {
-      console.log('event.data', event.data);
       if (event.data.size > 0) {
         this.onRecognitionResult(event.data, this.pTranscript);
       }
     };
-
-    super.onStopRecognitionClick(event);
   }
 
   //#endregion

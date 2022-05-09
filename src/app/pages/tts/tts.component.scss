@@ -1,0 +1,10 @@
+.tts-component {
+  &-checkbox {
+    width: 100px;
+    display: inline-flex;
+    align-items: baseline;
+    label {
+      margin-left: 5px;
+    }
+  }
+}

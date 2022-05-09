@@ -43,7 +43,7 @@ export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnIn
         if (subjectMessage.type === SubjectMessageTypeEnum.START_MICROSOFT) {
           this.onStartRecognitionClick(event);
         } else {
-          this.onStopRecognitionClick(event);
+          this.onStopRecognitionClick();
         }
       });
   }
@@ -56,8 +56,9 @@ export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnIn
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
+    super.onStartRecognitionClick(event);
+    this.setTranscriptText(this.pTranscript, '');
     this.privOffset = 0;
-    this.transcriptFinal = '';
     this.recognizer.startContinuousRecognitionAsync();
   }
 
@@ -91,15 +92,12 @@ export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnIn
     }
 
     this.transcript = event.result.text;
-
-    if (transcriptElement) transcriptElement.nativeElement.innerText = this.transcriptFinal + this.transcript;
+    this.setTranscriptText(transcriptElement, this.transcriptFinal + this.transcript);
   }
 
-  public onStopRecognitionClick(event: any): void {
-    // event.preventDefault();
+  public onStopRecognitionClick(): void {
     this.recognizer.stopContinuousRecognitionAsync();
-    // this.isRecording = false;
-    super.onStopRecognitionClick(event);
+    this.compareText();
   }
   //#endregion
 

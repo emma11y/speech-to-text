@@ -10,9 +10,18 @@ export class TextToSpeechComponent {
   constructor() {}
 
   protected initRecognition(): void {}
-  protected onStartRecognitionClick(event: any): void {}
+  protected onStartRecognitionClick(event: any): void {
+    this.resultSpeechToText = 0;
+  }
+
   protected onRecognitionResult(event: any, transcriptElement: any): void {}
-  protected onStopRecognitionClick(event: any): void {
+  protected onStopRecognitionClick(): void {}
+
+  protected compareText(): void {
     this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
+  }
+
+  protected setTranscriptText(transcriptElement: any, text: string): void {
+    transcriptElement.nativeElement.innerText = text;
   }
 }

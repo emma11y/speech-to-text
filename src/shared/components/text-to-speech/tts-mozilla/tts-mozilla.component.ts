@@ -31,7 +31,7 @@ export class TtsMozillaComponent extends TextToSpeechComponent implements OnInit
         if (subjectMessage.type === SubjectMessageTypeEnum.START_MOZILLA) {
           this.onStartRecognitionClick(event);
         } else {
-          this.onStopRecognitionClick(event);
+          this.onStopRecognitionClick();
         }
       });
   }
@@ -44,7 +44,8 @@ export class TtsMozillaComponent extends TextToSpeechComponent implements OnInit
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
-    this.resultSpeechToText = 0;
+    super.onStartRecognitionClick(event);
+    this.setTranscriptText(this.pTranscript, '');
     this.recognition.start();
   }
 
@@ -54,12 +55,12 @@ export class TtsMozillaComponent extends TextToSpeechComponent implements OnInit
       .map((result: any) => result.transcript)
       .join('');
 
-    if (transcriptElement) transcriptElement.nativeElement.innerText = this.transcript;
+    this.setTranscriptText(transcriptElement, this.transcript);
   }
 
-  public onStopRecognitionClick(event: any): void {
+  public onStopRecognitionClick(): void {
     this.recognition.stop();
-    super.onStopRecognitionClick(event);
+    this.compareText();
   }
   //#endregion
 
