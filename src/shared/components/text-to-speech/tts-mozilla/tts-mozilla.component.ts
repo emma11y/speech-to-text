@@ -1,7 +1,6 @@
 import { TextToSpeechComponent } from './../text-to-speech.component';
 import { AppConfig } from '@core/app-config';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { compareText } from '@shared/utilities/string.utility';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';

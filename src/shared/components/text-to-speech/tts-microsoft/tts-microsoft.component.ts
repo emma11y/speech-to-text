@@ -1,5 +1,5 @@
 import { AppConfig } from '@core/app-config';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
@@ -9,7 +9,6 @@ import {
   SpeechRecognitionEventArgs,
   SpeechRecognizer,
 } from 'microsoft-cognitiveservices-speech-sdk';
-import { compareText } from '@shared/utilities/string.utility';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';

@@ -7,7 +7,7 @@
     "location": ""
   },
   "google": {
-    "projectId": ""
+    "apiKey": ""
   },
   "deepgram": {
     "apiKey": ""
