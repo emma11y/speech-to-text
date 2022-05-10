@@ -24,9 +24,8 @@ export class TtsDeepgramComponent extends TextToSpeechComponent implements OnIni
         )
       )
       .subscribe((subjectMessage: SubjectMessage) => {
-        const event = subjectMessage.message;
         if (subjectMessage.type === SubjectMessageTypeEnum.START_DEEPGRAM) {
-          this.onStartRecognitionClick(event);
+          this.onStartRecognitionClick();
         } else {
           this.onStopRecognitionClick();
         }
@@ -45,8 +44,8 @@ export class TtsDeepgramComponent extends TextToSpeechComponent implements OnIni
   //#endregion
 
   //#region EVENTS
-  public onStartRecognitionClick(event: any): void {
-    super.onStartRecognitionClick(event);
+  public onStartRecognitionClick(): void {
+    super.onStartRecognitionClick();
     this.setTranscriptText(this.pTranscript, '');
     this.start = 0;
     this.transcriptFinal = '';
@@ -98,7 +97,7 @@ export class TtsDeepgramComponent extends TextToSpeechComponent implements OnIni
           }
         });
 
-        this.mediaRecorder.start(1);
+        this.mediaRecorder.start(0.25);
       };
 
       this.socket.onmessage = (message) => {

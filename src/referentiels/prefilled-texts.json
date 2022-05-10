@@ -1,0 +1,20 @@
+[
+  {
+    "id": 0,
+    "title": "",
+    "picture": "",
+    "text": ""
+  },
+  {
+    "id": 1,
+    "title": "Episode VI : Le Retour du Jedi",
+    "picture": "lightsabers.png",
+    "text": "Luke Skywalker est retourné parmi les siens sur la planète Tatooine pour tenter d'arracher son ami Han Solo aux griffes de l'ignoble Jabba le Hutt. Luke ne peut pas savoir que l'Empire Galactique a commencé à construire en secret une nouvelle station spatiale blindée bien plus puissante et terrifiante que la première Etoile de la Mort. Quand cette arme absolue sera achevée, ce sera la fin du petit groupe de résistants qui luttent pour ramener la liberté dans la galaxie..."
+  },
+  {
+    "id": 2,
+    "title": "Les trois lois d'Asimov",
+    "picture": "irobot.jpg",
+    "text": "Loi numéro 1 : un robot ne peut porter atteinte à un être humain ni, restant passif, permettre qu'un être humain soit exposé au danger ; Loi numéro 2 : un robot doit obéir aux ordres que lui donne un être humain, sauf si de tels ordres entrent en conflit avec la première loi ; Loi numéro 3 : un robot doit protéger son existence tant que cette protection n'entre pas en conflit avec la première ou la deuxième loi."
+  }
+]

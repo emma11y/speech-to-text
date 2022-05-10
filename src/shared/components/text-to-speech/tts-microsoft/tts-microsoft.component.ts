@@ -39,9 +39,8 @@ export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnIn
         )
       )
       .subscribe((subjectMessage: SubjectMessage) => {
-        const event = subjectMessage.message;
         if (subjectMessage.type === SubjectMessageTypeEnum.START_MICROSOFT) {
-          this.onStartRecognitionClick(event);
+          this.onStartRecognitionClick();
         } else {
           this.onStopRecognitionClick();
         }
@@ -55,8 +54,8 @@ export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnIn
   //#endregion
 
   //#region EVENTS
-  public onStartRecognitionClick(event: any): void {
-    super.onStartRecognitionClick(event);
+  public onStartRecognitionClick(): void {
+    super.onStartRecognitionClick();
     this.setTranscriptText(this.pTranscript, '');
     this.privOffset = 0;
     this.recognizer.startContinuousRecognitionAsync();

@@ -30,9 +30,8 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
         )
       )
       .subscribe((subjectMessage: SubjectMessage) => {
-        const event = subjectMessage.message;
         if (subjectMessage.type === SubjectMessageTypeEnum.START_GOOGLE) {
-          this.onStartRecognitionClick(event);
+          this.onStartRecognitionClick();
         } else {
           this.onStopRecognitionClick();
         }
@@ -44,8 +43,8 @@ export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit 
   //#endregion
 
   //#region EVENTS
-  public onStartRecognitionClick(event: any): void {
-    super.onStartRecognitionClick(event);
+  public onStartRecognitionClick(): void {
+    super.onStartRecognitionClick();
     this.setTranscriptText(this.pTranscript, '');
     this.initRecognition();
   }

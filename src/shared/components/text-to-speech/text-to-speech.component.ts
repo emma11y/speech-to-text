@@ -10,7 +10,7 @@ export class TextToSpeechComponent {
   constructor() {}
 
   protected initRecognition(): void {}
-  protected onStartRecognitionClick(event: any): void {
+  protected onStartRecognitionClick(): void {
     this.resultSpeechToText = 0;
   }
 
