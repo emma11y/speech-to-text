@@ -1,19 +1,19 @@
-import { TextToSpeechComponent } from './../text-to-speech.component';
 import { AppConfig } from '@core/app-config';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { filter } from 'rxjs/operators';
+import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 declare var webkitSpeechRecognition: any;
 
 @Component({
-  selector: 'app-tts-mozilla',
-  templateUrl: './tts-mozilla.component.html',
-  styleUrls: ['./tts-mozilla.component.scss'],
+  selector: 'app-speech-to-text-mozilla',
+  templateUrl: './speech-to-text-mozilla.component.html',
+  styleUrls: ['./speech-to-text-mozilla.component.scss'],
 })
-export class TtsMozillaComponent extends TextToSpeechComponent implements OnInit {
+export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent implements OnInit {
   private recognition: any;
 
   @ViewChild('pTranscriptMozilla', { static: true }) pTranscript: HTMLElement | undefined;

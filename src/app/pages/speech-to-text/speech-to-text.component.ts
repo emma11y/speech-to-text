@@ -5,11 +5,11 @@ import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 
 @Component({
-  selector: 'app-tts',
-  templateUrl: './tts.component.html',
-  styleUrls: ['./tts.component.scss'],
+  selector: 'app-speech-to-text',
+  templateUrl: './speech-to-text.component.html',
+  styleUrls: ['./speech-to-text.component.scss'],
 })
-export class TtsComponent implements OnInit {
+export class SpeechToTextComponent implements OnInit {
   public textToSpeech: string = '';
   public isRecording: boolean = false;
 
@@ -21,11 +21,8 @@ export class TtsComponent implements OnInit {
   public prefilledTexts: PrefilledTextDto[] = [];
   public selectedPrefilledText: PrefilledTextDto;
 
-  constructor(
-    private readonly _subjectMessageService: SubjectMessageService,
-    private readonly _prefilledTextsService: PrefilledTextsService
-  ) {
-    this.prefilledTexts = _prefilledTextsService.getItems();
+  constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
+    this.prefilledTexts = prefilledTextsService.getItems();
     console.log(this.prefilledTexts[1]);
   }
 

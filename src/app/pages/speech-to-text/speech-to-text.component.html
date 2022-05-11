@@ -1,4 +1,4 @@
-<div class="tts-component">
+<div class="speech-to-text-component">
   <h1>Speech-To-Text</h1>
   <div class="row m-5">
     <div class="col">
@@ -6,28 +6,30 @@
       <form role="form">
         <fieldset>
           <legend class="title-gp">Activer le Speech-To-Text de :</legend>
-          <div class="tts-component-checkbox">
-            <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isMozillaEnabled" id="chkMozilla" />
+          <div class="speech-to-text-component-checkbox">
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isMozillaEnabled" id="chkMozilla" />
             <label for="chkMozilla">Mozilla</label>
           </div>
-          <div class="tts-component-checkbox">
-            <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isGoogleEnabled" id="chkGoogle" /><label for="chkGoogle"
+          <div class="speech-to-text-component-checkbox">
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isGoogleEnabled" id="chkGoogle" /><label
+              for="chkGoogle"
               >Google</label
             >
           </div>
-          <div class="tts-component-checkbox">
-            <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isMicrosoftEnabled" id="chkMicrosoft" /><label
+          <div class="speech-to-text-component-checkbox">
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isMicrosoftEnabled" id="chkMicrosoft" /><label
               for="chkMicrosoft"
               >Microsoft</label
             >
           </div>
-          <div class="tts-component-checkbox">
-            <input autocomplete="off" type="checkbox" name="tts" [(ngModel)]="isDeepgramEnabled" id="chkDeepgram" /><label for="chkDeepgram"
+          <div class="speech-to-text-component-checkbox">
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isDeepgramEnabled" id="chkDeepgram" /><label
+              for="chkDeepgram"
               >Deepgram</label
             >
           </div>
         </fieldset>
-        <div *ngIf="prefilledTexts.length > 0" class="tts-component-select">
+        <div *ngIf="prefilledTexts.length > 0" class="speech-to-text-component-select">
           <label for="sPrefilledText">Sélectionner un texte pré-rempli</label>
           <select id="sPrefilledText" (change)="onPrefilledTextChange($event.target.value)">
             <option *ngFor="let prefilledText of prefilledTexts" [value]="prefilledText.id">{{ prefilledText.title }}</option>
@@ -35,7 +37,7 @@
         </div>
       </form>
     </div>
-    <div class="col tts-component-picture">
+    <div class="col speech-to-text-component-picture">
       <img *ngIf="selectedPrefilledText?.picture" alt="" [src]="'../../../assets/pictures/' + selectedPrefilledText.picture" />
     </div>
   </div>
@@ -48,16 +50,16 @@
   </div>
   <div class="row mt-5">
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMozillaEnabled">
-      <app-tts-mozilla [textToSpeech]="textToSpeech"></app-tts-mozilla>
+      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech"></app-speech-to-text-mozilla>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isGoogleEnabled">
-      <app-tts-google [textToSpeech]="textToSpeech"></app-tts-google>
+      <app-speech-to-text-google [textToSpeech]="textToSpeech"></app-speech-to-text-google>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMicrosoftEnabled">
-      <app-tts-microsoft [textToSpeech]="textToSpeech"></app-tts-microsoft>
+      <app-speech-to-text-microsoft [textToSpeech]="textToSpeech"></app-speech-to-text-microsoft>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isDeepgramEnabled">
-      <app-tts-deepgram [textToSpeech]="textToSpeech"></app-tts-deepgram>
+      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech"></app-speech-to-text-deepgram>
     </div>
   </div>
 </div>

@@ -5,15 +5,15 @@ import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
-import { TextToSpeechComponent } from '@shared/components/text-to-speech/text-to-speech.component';
 import * as queryString from 'query-string';
+import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 @Component({
-  selector: 'app-tts-deepgram',
-  templateUrl: './tts-deepgram.component.html',
-  styleUrls: ['./tts-deepgram.component.scss'],
+  selector: 'app-speech-to-text-deepgram',
+  templateUrl: './speech-to-text-deepgram.component.html',
+  styleUrls: ['./speech-to-text-deepgram.component.scss'],
 })
-export class TtsDeepgramComponent extends TextToSpeechComponent implements OnInit {
+export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent implements OnInit {
   constructor(private readonly _subjectMessageService: SubjectMessageService) {
     super();
     this._subjectMessageService.subject

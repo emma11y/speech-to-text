@@ -2,7 +2,7 @@ import { Directive, Input } from '@angular/core';
 import { compareText } from '@shared/utilities/string.utility';
 
 @Directive()
-export class TextToSpeechComponent {
+export class BaseSpeechToTextComponent {
   @Input() public textToSpeech: string = '';
   public transcript: string = '';
   public resultSpeechToText: number = 0;

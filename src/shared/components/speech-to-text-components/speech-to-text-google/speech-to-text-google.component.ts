@@ -1,21 +1,21 @@
 import { SubjectMessageService } from '@core/services/subject-message.service';
-import { TextToSpeechComponent } from './../text-to-speech.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppConfig } from '@core/app-config';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
+import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 // https://github.com/googleapis/nodejs-speech
 // Documentation : https://github.com/googleapis/nodejs-speech/blob/main/samples/infiniteStreaming.js
 // https://github.com/googlecreativelab/obvi/blob/master/voice-button.js
 
 @Component({
-  selector: 'app-tts-google',
-  templateUrl: './tts-google.component.html',
-  styleUrls: ['./tts-google.component.scss'],
+  selector: 'app-speech-to-text-google',
+  templateUrl: './speech-to-text-google.component.html',
+  styleUrls: ['./speech-to-text-google.component.scss'],
 })
-export class TtsGoogleComponent extends TextToSpeechComponent implements OnInit {
+export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent implements OnInit {
   @ViewChild('pTranscriptGoogle', { static: true }) pTranscript: HTMLElement | undefined;
   private mediaRecorder: MediaRecorder;
 

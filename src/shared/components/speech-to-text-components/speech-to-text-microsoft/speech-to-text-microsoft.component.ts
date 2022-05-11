@@ -13,16 +13,16 @@ import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
-import { TextToSpeechComponent } from '../text-to-speech.component';
+import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 //https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
 @Component({
-  selector: 'app-tts-microsoft',
-  templateUrl: './tts-microsoft.component.html',
-  styleUrls: ['./tts-microsoft.component.scss'],
+  selector: 'app-speech-to-text-microsoft',
+  templateUrl: './speech-to-text-microsoft.component.html',
+  styleUrls: ['./speech-to-text-microsoft.component.scss'],
 })
-export class TtsMicrosoftComponent extends TextToSpeechComponent implements OnInit {
+export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent implements OnInit {
   private recognizer!: SpeechRecognizer;
   private privOffset: number = 0;
   private transcriptFinal: string = '';
