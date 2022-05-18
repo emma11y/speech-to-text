@@ -1,5 +1,5 @@
 {
-  "appBaseUrl": "http://localhost:4200",
+  "appBaseUrl": "/",
   "language": "fr-FR",
   "interimResults": true,
   "microsoft": {
