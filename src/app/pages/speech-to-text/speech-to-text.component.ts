@@ -23,7 +23,6 @@ export class SpeechToTextComponent implements OnInit {
 
   constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
     this.prefilledTexts = prefilledTextsService.getItems();
-    console.log(this.prefilledTexts[1]);
   }
 
   //#region LIFE CYCLES
