@@ -10,8 +10,8 @@ import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 @Component({
   selector: 'app-speech-to-text-deepgram',
-  templateUrl: './speech-to-text-deepgram.component.html',
-  styleUrls: ['./speech-to-text-deepgram.component.scss'],
+  templateUrl: '../base-speech-to-text.component.html',
+  styleUrls: ['../base-speech-to-text.component.scss'],
 })
 export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent implements OnInit {
   constructor(private readonly _subjectMessageService: SubjectMessageService) {
@@ -37,10 +37,10 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent imp
   private start: number;
   private transcriptFinal: string = '';
 
-  @ViewChild('pTranscriptDeepgram', { static: true }) pTranscript: HTMLElement | undefined;
-
   //#region LIFE CYCLES
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.name = 'Deepgram';
+  }
   //#endregion
 
   //#region EVENTS

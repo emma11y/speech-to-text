@@ -1,3 +1,4 @@
+import { SpeechToTextOptions } from '@shared/models/speech-to-text-options';
 import { PrefilledTextDto } from '@shared/dtos/prefilled-text.dto';
 import { PrefilledTextsService } from '@core/services/prefilled-texts.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,21 +22,27 @@ export class SpeechToTextComponent implements OnInit {
   public prefilledTexts: PrefilledTextDto[] = [];
   public selectedPrefilledText: PrefilledTextDto;
 
+  public options: SpeechToTextOptions;
+
   constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
     this.prefilledTexts = prefilledTextsService.getItems();
   }
 
   //#region LIFE CYCLES
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.options = new SpeechToTextOptions();
+    this.options.isAllowProfanity = true;
+  }
   //#endregion
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
     this.isRecording = true;
-    if (this.isMozillaEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MOZILLA);
-    if (this.isMicrosoftEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MICROSOFT);
-    if (this.isGoogleEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_GOOGLE);
-    if (this.isDeepgramEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_DEEPGRAM);
+
+    if (this.isMozillaEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MOZILLA, this.options);
+    if (this.isMicrosoftEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MICROSOFT, this.options);
+    if (this.isGoogleEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_GOOGLE, this.options);
+    if (this.isDeepgramEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_DEEPGRAM, this.options);
   }
 
   public onStopRecognitionClick(event: any): void {

@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
+  ProfanityOption,
   Recognizer,
   ResultReason,
   SpeechConfig,
@@ -14,20 +15,21 @@ import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum'
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
+import { SpeechToTextOptions } from '@shared/models/speech-to-text-options';
 
 //https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
 @Component({
   selector: 'app-speech-to-text-microsoft',
-  templateUrl: './speech-to-text-microsoft.component.html',
-  styleUrls: ['./speech-to-text-microsoft.component.scss'],
+  templateUrl: '../base-speech-to-text.component.html',
+  styleUrls: ['../base-speech-to-text.component.scss'],
 })
 export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent implements OnInit {
   private recognizer!: SpeechRecognizer;
   private privOffset: number = 0;
   private transcriptFinal: string = '';
 
-  @ViewChild('pTranscriptMicrosoft', { static: true }) pTranscript: HTMLElement | undefined;
+  private options: SpeechToTextOptions;
 
   constructor(private readonly _subjectMessageService: SubjectMessageService) {
     super();
@@ -40,6 +42,7 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
       )
       .subscribe((subjectMessage: SubjectMessage) => {
         if (subjectMessage.type === SubjectMessageTypeEnum.START_MICROSOFT) {
+          this.options = subjectMessage.message as SpeechToTextOptions;
           this.onStartRecognitionClick();
         } else {
           this.onStopRecognitionClick();
@@ -49,6 +52,7 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
 
   //#region LIFE CYCLES
   public ngOnInit(): void {
+    this.name = 'Microsoft';
     this.initRecognition();
   }
   //#endregion
@@ -104,6 +108,10 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
   public initRecognition(): void {
     const speechConfig = SpeechConfig.fromSubscription(AppConfig.appSettings.microsoft.apiKey, AppConfig.appSettings.microsoft.location);
     speechConfig.speechRecognitionLanguage = AppConfig.appSettings.language;
+
+    if (this.options) {
+      speechConfig.setProfanity(this.options.isAllowProfanity ? ProfanityOption.Raw : ProfanityOption.Masked);
+    }
 
     this.recognizer = new SpeechRecognizer(speechConfig);
     this.recognizer.recognizing = (sender: Recognizer, event: SpeechRecognitionEventArgs) =>

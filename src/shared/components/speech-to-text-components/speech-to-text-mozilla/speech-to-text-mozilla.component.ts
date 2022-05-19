@@ -10,13 +10,12 @@ declare var webkitSpeechRecognition: any;
 
 @Component({
   selector: 'app-speech-to-text-mozilla',
-  templateUrl: './speech-to-text-mozilla.component.html',
-  styleUrls: ['./speech-to-text-mozilla.component.scss'],
+  templateUrl: '../base-speech-to-text.component.html',
+  styleUrls: ['../base-speech-to-text.component.scss'],
 })
 export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent implements OnInit {
   private recognition: any;
 
-  @ViewChild('pTranscriptMozilla', { static: true }) pTranscript: HTMLElement | undefined;
   constructor(private readonly _subjectMessageService: SubjectMessageService) {
     super();
     this._subjectMessageService.subject
@@ -37,6 +36,7 @@ export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent impl
 
   //#region LIFE CYCLES
   public ngOnInit(): void {
+    this.name = 'Mozilla';
     this.initRecognition();
   }
   //#endregion

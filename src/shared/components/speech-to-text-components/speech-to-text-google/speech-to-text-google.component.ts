@@ -12,11 +12,10 @@ import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 @Component({
   selector: 'app-speech-to-text-google',
-  templateUrl: './speech-to-text-google.component.html',
-  styleUrls: ['./speech-to-text-google.component.scss'],
+  templateUrl: '../base-speech-to-text.component.html',
+  styleUrls: ['../base-speech-to-text.component.scss'],
 })
 export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent implements OnInit {
-  @ViewChild('pTranscriptGoogle', { static: true }) pTranscript: HTMLElement | undefined;
   private mediaRecorder: MediaRecorder;
 
   constructor(private _subjectMessageService: SubjectMessageService) {
@@ -39,7 +38,9 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
   }
 
   //#region LIFE CYCLES
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.name = 'Google';
+  }
   //#endregion
 
   //#region EVENTS
@@ -77,8 +78,11 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
         ) {
           this.transcript = response.results[0].alternatives[0].transcript;
           this.setTranscriptText(transcriptElement, this.transcript);
-          this.compareText();
         }
+      };
+
+      xhr.onloadend = () => {
+        this.compareText();
       };
 
       xhr.onerror = () => {

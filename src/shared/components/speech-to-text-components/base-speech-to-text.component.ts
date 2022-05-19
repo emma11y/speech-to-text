@@ -1,11 +1,15 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, ViewChild } from '@angular/core';
 import { compareText } from '@shared/utilities/string.utility';
 
 @Directive()
 export class BaseSpeechToTextComponent {
   @Input() public textToSpeech: string = '';
+
+  public name: string;
   public transcript: string = '';
   public resultSpeechToText: number = 0;
+
+  @ViewChild('pTranscript', { static: true }) pTranscript: HTMLElement | undefined;
 
   constructor() {}
 
@@ -19,6 +23,7 @@ export class BaseSpeechToTextComponent {
 
   protected compareText(): void {
     this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
+    console.log('compareText', this.textToSpeech, this.transcript, this.resultSpeechToText);
   }
 
   protected setTranscriptText(transcriptElement: any, text: string): void {
