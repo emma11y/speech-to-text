@@ -1,5 +1,5 @@
 import { SubjectMessageService } from '@core/services/subject-message.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AppConfig } from '@core/app-config';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';
@@ -18,8 +18,8 @@ import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent implements OnInit {
   private mediaRecorder: MediaRecorder;
 
-  constructor(private _subjectMessageService: SubjectMessageService) {
-    super();
+  constructor(ngZone: NgZone, private _subjectMessageService: SubjectMessageService) {
+    super(ngZone);
 
     this._subjectMessageService.subject
       .pipe(

@@ -1,5 +1,5 @@
 import { AppConfig } from '@core/app-config';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { LiveTranscriptionOptions } from '@deepgram/sdk/dist/types';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
@@ -14,8 +14,8 @@ import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
   styleUrls: ['../base-speech-to-text.component.scss'],
 })
 export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent implements OnInit {
-  constructor(private readonly _subjectMessageService: SubjectMessageService) {
-    super();
+  constructor(ngZone: NgZone, private readonly _subjectMessageService: SubjectMessageService) {
+    super(ngZone);
     this._subjectMessageService.subject
       .pipe(
         filter(

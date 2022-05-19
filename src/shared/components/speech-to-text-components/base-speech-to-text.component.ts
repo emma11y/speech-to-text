@@ -1,5 +1,5 @@
-import { Directive, Input, ViewChild } from '@angular/core';
-import { compareText } from '@shared/utilities/string.utility';
+import { Directive, Input, NgZone, ViewChild } from '@angular/core';
+import { compareText as getResultAfterCompareText } from '@shared/utilities/string.utility';
 
 @Directive()
 export class BaseSpeechToTextComponent {
@@ -11,7 +11,7 @@ export class BaseSpeechToTextComponent {
 
   @ViewChild('pTranscript', { static: true }) pTranscript: HTMLElement | undefined;
 
-  constructor() {}
+  constructor(private _ngZone: NgZone) {}
 
   protected initRecognition(): void {}
   protected onStartRecognitionClick(): void {
@@ -22,8 +22,9 @@ export class BaseSpeechToTextComponent {
   protected onStopRecognitionClick(): void {}
 
   protected compareText(): void {
-    this.resultSpeechToText = compareText(this.textToSpeech, this.transcript);
-    console.log('compareText', this.textToSpeech, this.transcript, this.resultSpeechToText);
+    this._ngZone.run(() => {
+      this.resultSpeechToText = getResultAfterCompareText(this.textToSpeech, this.transcript);
+    });
   }
 
   protected setTranscriptText(transcriptElement: any, text: string): void {

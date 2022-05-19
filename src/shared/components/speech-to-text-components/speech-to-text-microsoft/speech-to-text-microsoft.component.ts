@@ -1,5 +1,5 @@
 import { AppConfig } from '@core/app-config';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
@@ -31,8 +31,8 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
 
   private options: SpeechToTextOptions;
 
-  constructor(private readonly _subjectMessageService: SubjectMessageService) {
-    super();
+  constructor(ngZone: NgZone, private readonly _subjectMessageService: SubjectMessageService) {
+    super(ngZone);
     this._subjectMessageService.subject
       .pipe(
         filter(
@@ -62,6 +62,7 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
     super.onStartRecognitionClick();
     this.setTranscriptText(this.pTranscript, '');
     this.privOffset = 0;
+    this.transcriptFinal = '';
     this.recognizer.startContinuousRecognitionAsync();
   }
 
