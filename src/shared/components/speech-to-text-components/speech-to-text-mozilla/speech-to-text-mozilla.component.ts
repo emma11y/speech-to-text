@@ -44,17 +44,17 @@ export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent impl
   //#region EVENTS
   public onStartRecognitionClick(): void {
     super.onStartRecognitionClick();
-    this.setTranscriptText(this.pTranscript, '');
+    this.setTranscriptText('');
     this.recognition.start();
   }
 
-  public onRecognitionResult(event: any, transcriptElement: any): void {
+  public onRecognitionResult(event: any): void {
     this.transcript = Array.from(event.results)
       .map((result: any) => result[0])
       .map((result: any) => result.transcript)
       .join('');
 
-    this.setTranscriptText(transcriptElement, this.transcript);
+    this.setTranscriptText(this.transcript);
   }
 
   public onStopRecognitionClick(): void {
@@ -69,7 +69,7 @@ export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent impl
     this.recognition.lang = AppConfig.appSettings.language;
     this.recognition.continuous = true;
     this.recognition.interimResults = AppConfig.appSettings.interimResults;
-    this.recognition.addEventListener('result', (e: any) => this.onRecognitionResult(e, this.pTranscript));
+    this.recognition.addEventListener('result', (e: any) => this.onRecognitionResult(e));
   }
   //#endregion
 }

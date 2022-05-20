@@ -14,10 +14,11 @@
     }
   }
 
-  &-picture {
-    text-align: center;
-    img {
-      width: 30%;
+  &-options {
+    &-group {
+      label {
+        margin-left: 5px;
+      }
     }
   }
 }

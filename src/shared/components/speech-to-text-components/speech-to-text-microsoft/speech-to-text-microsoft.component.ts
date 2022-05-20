@@ -60,13 +60,13 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
   //#region EVENTS
   public onStartRecognitionClick(): void {
     super.onStartRecognitionClick();
-    this.setTranscriptText(this.pTranscript, '');
+    this.setTranscriptText('');
     this.privOffset = 0;
     this.transcriptFinal = '';
     this.recognizer.startContinuousRecognitionAsync();
   }
 
-  public onRecognitionResult(event: SpeechRecognitionEventArgs, transcriptElement: any): void {
+  public onRecognitionResult(event: SpeechRecognitionEventArgs): void {
     switch (event.result.reason) {
       case ResultReason.RecognizedSpeech:
         console.log(`RECOGNIZED: Text=${event.result.text}`);
@@ -96,7 +96,7 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
     }
 
     this.transcript = event.result.text;
-    this.setTranscriptText(transcriptElement, this.transcriptFinal + this.transcript);
+    this.setTranscriptText(this.transcriptFinal + this.transcript);
   }
 
   public onStopRecognitionClick(): void {
@@ -115,7 +115,6 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
     }
 
     this.recognizer = new SpeechRecognizer(speechConfig);
-    this.recognizer.recognizing = (sender: Recognizer, event: SpeechRecognitionEventArgs) =>
-      this.onRecognitionResult(event, this.pTranscript);
+    this.recognizer.recognizing = (sender: Recognizer, event: SpeechRecognitionEventArgs) => this.onRecognitionResult(event);
   }
 }

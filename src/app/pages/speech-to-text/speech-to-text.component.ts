@@ -31,7 +31,6 @@ export class SpeechToTextComponent implements OnInit {
   //#region LIFE CYCLES
   public ngOnInit(): void {
     this.options = new SpeechToTextOptions();
-    this.options.isAllowProfanity = true;
   }
   //#endregion
 

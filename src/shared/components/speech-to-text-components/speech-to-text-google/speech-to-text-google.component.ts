@@ -46,11 +46,11 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
   //#region EVENTS
   public onStartRecognitionClick(): void {
     super.onStartRecognitionClick();
-    this.setTranscriptText(this.pTranscript, '');
+    this.setTranscriptText('');
     this.initRecognition();
   }
 
-  public onRecognitionResult(blob: any, transcriptElement: any): void {
+  public onRecognitionResult(blob: any): void {
     this.convertBlobToBase64(blob, (data) => {
       let postBody = {
         config: {
@@ -77,7 +77,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
           response.results[0].alternatives[0].transcript
         ) {
           this.transcript = response.results[0].alternatives[0].transcript;
-          this.setTranscriptText(transcriptElement, this.transcript);
+          this.setTranscriptText(this.transcript);
         }
       };
 
@@ -97,7 +97,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
 
     this.mediaRecorder.ondataavailable = async (event: BlobEvent) => {
       if (event.data.size > 0) {
-        this.onRecognitionResult(event.data, this.pTranscript);
+        this.onRecognitionResult(event.data);
       }
     };
   }

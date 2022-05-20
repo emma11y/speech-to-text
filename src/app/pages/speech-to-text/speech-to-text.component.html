@@ -29,15 +29,7 @@
             >
           </div>
         </fieldset>
-        <div>
-          <input
-            autocomplete="off"
-            type="checkbox"
-            name="speech-to-text-profanity"
-            [(ngModel)]="options.isAllowProfanity"
-            id="chkProfanity"
-          /><label for="chkProfanity">Autoriser les gros mots</label>
-        </div>
+
         <div *ngIf="prefilledTexts.length > 0" class="speech-to-text-component-select">
           <label for="sPrefilledText">Sélectionner un texte pré-rempli</label>
           <select id="sPrefilledText" (change)="onPrefilledTextChange($event.target.value)">
@@ -46,8 +38,22 @@
         </div>
       </form>
     </div>
-    <div class="col speech-to-text-component-picture">
-      <img *ngIf="selectedPrefilledText?.picture" alt="" [src]="'../../../assets/pictures/' + selectedPrefilledText.picture" />
+    <div class="col speech-to-text-component-options">
+      <div class="speech-to-text-component-options-group">
+        <input autocomplete="off" type="checkbox" name="isAllowProfanity" [(ngModel)]="options.isAllowProfanity" id="chkProfanity" /><label
+          for="chkProfanity"
+          >Autoriser les gros mots</label
+        >
+      </div>
+      <div class="speech-to-text-component-options-group">
+        <input
+          autocomplete="off"
+          type="checkbox"
+          name="isAllowPunctuation"
+          [(ngModel)]="options.isAllowPunctuation"
+          id="chkPunctuation"
+        /><label for="chkPunctuation">Mettre les ponctuations</label>
+      </div>
     </div>
   </div>
   <div class="row m-5">

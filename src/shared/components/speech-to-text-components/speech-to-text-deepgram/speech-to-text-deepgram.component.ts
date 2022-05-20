@@ -46,13 +46,13 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent imp
   //#region EVENTS
   public onStartRecognitionClick(): void {
     super.onStartRecognitionClick();
-    this.setTranscriptText(this.pTranscript, '');
+    this.setTranscriptText('');
     this.start = 0;
     this.transcriptFinal = '';
     this.initRecognition();
   }
 
-  public onRecognitionResult(event: any, transcriptElement: any): void {
+  public onRecognitionResult(event: any): void {
     const data = JSON.parse(event.data);
 
     if (data.start !== this.start) {
@@ -60,14 +60,14 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent imp
       this.transcriptFinal += `${this.transcript} `;
     }
 
-    this.transcript = data.channel.alternatives[0].transcript;
-    this.setTranscriptText(transcriptElement, this.transcriptFinal + this.transcript);
+    this.transcript = this.transcriptFinal + data.channel.alternatives[0].transcript;
+    this.setTranscriptText(this.transcript);
   }
 
   public onStopRecognitionClick(): void {
+    this.compareText();
     this.mediaRecorder.stop();
     this.socket.close();
-    this.compareText();
   }
   //#endregion
 
@@ -101,7 +101,7 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent imp
       };
 
       this.socket.onmessage = (message) => {
-        this.onRecognitionResult(message, this.pTranscript);
+        this.onRecognitionResult(message);
       };
     });
   }

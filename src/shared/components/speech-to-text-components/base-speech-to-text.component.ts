@@ -18,7 +18,7 @@ export class BaseSpeechToTextComponent {
     this.resultSpeechToText = 0;
   }
 
-  protected onRecognitionResult(event: any, transcriptElement: any): void {}
+  protected onRecognitionResult(event: any): void {}
   protected onStopRecognitionClick(): void {}
 
   protected compareText(): void {
@@ -27,7 +27,7 @@ export class BaseSpeechToTextComponent {
     });
   }
 
-  protected setTranscriptText(transcriptElement: any, text: string): void {
-    transcriptElement.nativeElement.innerText = text;
+  protected setTranscriptText(text: string): void {
+    (this.pTranscript as any).nativeElement.innerText = text;
   }
 }
