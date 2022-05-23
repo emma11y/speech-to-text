@@ -22,26 +22,24 @@ export class SpeechToTextComponent implements OnInit {
   public prefilledTexts: PrefilledTextDto[] = [];
   public selectedPrefilledText: PrefilledTextDto;
 
-  public options: SpeechToTextOptions;
+  public options: SpeechToTextOptions = new SpeechToTextOptions();
 
   constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
     this.prefilledTexts = prefilledTextsService.getItems();
   }
 
   //#region LIFE CYCLES
-  public ngOnInit(): void {
-    this.options = new SpeechToTextOptions();
-  }
+  public ngOnInit(): void {}
   //#endregion
 
   //#region EVENTS
   public onStartRecognitionClick(event: any): void {
     this.isRecording = true;
 
-    if (this.isMozillaEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MOZILLA, this.options);
-    if (this.isMicrosoftEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MICROSOFT, this.options);
-    if (this.isGoogleEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_GOOGLE, this.options);
-    if (this.isDeepgramEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_DEEPGRAM, this.options);
+    if (this.isMozillaEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MOZILLA);
+    if (this.isMicrosoftEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MICROSOFT);
+    if (this.isGoogleEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_GOOGLE);
+    if (this.isDeepgramEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_DEEPGRAM);
   }
 
   public onStopRecognitionClick(event: any): void {

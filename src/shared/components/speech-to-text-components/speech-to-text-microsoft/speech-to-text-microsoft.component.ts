@@ -1,5 +1,5 @@
 import { AppConfig } from '@core/app-config';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
@@ -15,7 +15,7 @@ import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum'
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
-import { SpeechToTextOptions } from '@shared/models/speech-to-text-options';
+import { ForceDictationPropertyName } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common.speech/Exports';
 
 //https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
@@ -24,12 +24,10 @@ import { SpeechToTextOptions } from '@shared/models/speech-to-text-options';
   templateUrl: '../base-speech-to-text.component.html',
   styleUrls: ['../base-speech-to-text.component.scss'],
 })
-export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent implements OnInit {
+export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
   private recognizer!: SpeechRecognizer;
   private privOffset: number = 0;
   private transcriptFinal: string = '';
-
-  private options: SpeechToTextOptions;
 
   constructor(ngZone: NgZone, private readonly _subjectMessageService: SubjectMessageService) {
     super(ngZone);
@@ -42,7 +40,6 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
       )
       .subscribe((subjectMessage: SubjectMessage) => {
         if (subjectMessage.type === SubjectMessageTypeEnum.START_MICROSOFT) {
-          this.options = subjectMessage.message as SpeechToTextOptions;
           this.onStartRecognitionClick();
         } else {
           this.onStopRecognitionClick();
@@ -86,6 +83,8 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
         return;
     }
 
+    console.log('event', event.result);
+
     if (this.privOffset === 0) {
       this.privOffset = event.result.offset;
     }
@@ -109,12 +108,20 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent im
   public initRecognition(): void {
     const speechConfig = SpeechConfig.fromSubscription(AppConfig.appSettings.microsoft.apiKey, AppConfig.appSettings.microsoft.location);
     speechConfig.speechRecognitionLanguage = AppConfig.appSettings.language;
-
+    speechConfig.setProperty(ForceDictationPropertyName, 'true');
     if (this.options) {
       speechConfig.setProfanity(this.options.isAllowProfanity ? ProfanityOption.Raw : ProfanityOption.Masked);
+      if (this.options.isAllowPunctuation) {
+        speechConfig.setProperty(ForceDictationPropertyName, 'true');
+      } else {
+        speechConfig.setProperty(ForceDictationPropertyName, 'false');
+      }
+
+      console.log(ForceDictationPropertyName, speechConfig.getProperty(ForceDictationPropertyName));
     }
 
     this.recognizer = new SpeechRecognizer(speechConfig);
+    console.log(this.recognizer.properties);
     this.recognizer.recognizing = (sender: Recognizer, event: SpeechRecognitionEventArgs) => this.onRecognitionResult(event);
   }
 }

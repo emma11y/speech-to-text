@@ -1,5 +1,5 @@
 import { AppConfig } from '@core/app-config';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { SubjectMessage } from '@shared/models/subject-message';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
@@ -13,7 +13,7 @@ declare var webkitSpeechRecognition: any;
   templateUrl: '../base-speech-to-text.component.html',
   styleUrls: ['../base-speech-to-text.component.scss'],
 })
-export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent implements OnInit {
+export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent {
   private recognition: any;
 
   constructor(ngZone: NgZone, private readonly _subjectMessageService: SubjectMessageService) {

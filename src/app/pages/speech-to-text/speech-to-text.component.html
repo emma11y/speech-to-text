@@ -40,24 +40,28 @@
     </div>
     <div class="col speech-to-text-component-options">
       <div class="speech-to-text-component-options-group">
-        <input autocomplete="off" type="checkbox" name="isAllowProfanity" [(ngModel)]="options.isAllowProfanity" id="chkProfanity" /><label
-          for="chkProfanity"
-          >Autoriser les gros mots</label
+        <input type="checkbox" id="chkAllowProfanity" name="isAllowProfanity" [(ngModel)]="options.isAllowProfanity" /><label
+          for="chkAllowProfanity"
+          >Autoriser les gros mots (uniquement pour Microsoft dont on filtre les gros mots par défaut)</label
         >
       </div>
       <div class="speech-to-text-component-options-group">
-        <input
-          autocomplete="off"
-          type="checkbox"
-          name="isAllowPunctuation"
-          [(ngModel)]="options.isAllowPunctuation"
-          id="chkPunctuation"
-        /><label for="chkPunctuation">Mettre les ponctuations</label>
+        <input type="checkbox" id="chkBanProfanity" name="isBanProfanity" [(ngModel)]="options.isBanProfanity" /><label
+          for="chkBanProfanity"
+          >Interdire les gros mots</label
+        >
+      </div>
+      <div class="speech-to-text-component-options-group">
+        <input type="checkbox" id="chkPunctuation" name="isAllowPunctuation" [(ngModel)]="options.isAllowPunctuation" /><label
+          for="chkPunctuation"
+          >Mettre les ponctuations</label
+        >
       </div>
     </div>
   </div>
-  <div class="row m-5">
-    <textarea rows="5" [(ngModel)]="textToSpeech"></textarea>
+  <div class="row mx-5 my-3">
+    <label for="txtTextToSpeech" class="p-0">Texte à vocaliser</label>
+    <textarea id="txtTextToSpeech" rows="5" [(ngModel)]="textToSpeech"></textarea>
   </div>
   <div class="row w-50 m-auto">
     <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer</button>
@@ -65,16 +69,16 @@
   </div>
   <div class="row mt-5">
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMozillaEnabled">
-      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech"></app-speech-to-text-mozilla>
+      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-mozilla>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isGoogleEnabled">
-      <app-speech-to-text-google [textToSpeech]="textToSpeech"></app-speech-to-text-google>
+      <app-speech-to-text-google [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-google>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMicrosoftEnabled">
-      <app-speech-to-text-microsoft [textToSpeech]="textToSpeech"></app-speech-to-text-microsoft>
+      <app-speech-to-text-microsoft [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-microsoft>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isDeepgramEnabled">
-      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech"></app-speech-to-text-deepgram>
+      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-deepgram>
     </div>
   </div>
 </div>

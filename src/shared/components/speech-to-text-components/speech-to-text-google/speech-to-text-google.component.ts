@@ -1,5 +1,5 @@
 import { SubjectMessageService } from '@core/services/subject-message.service';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { AppConfig } from '@core/app-config';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
 import { SubjectMessage } from '@shared/models/subject-message';
@@ -15,8 +15,9 @@ import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
   templateUrl: '../base-speech-to-text.component.html',
   styleUrls: ['../base-speech-to-text.component.scss'],
 })
-export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent implements OnInit {
+export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent {
   private mediaRecorder: MediaRecorder;
+  private isStarted: boolean = false;
 
   constructor(ngZone: NgZone, private _subjectMessageService: SubjectMessageService) {
     super(ngZone);
@@ -45,6 +46,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
 
   //#region EVENTS
   public onStartRecognitionClick(): void {
+    this.isStarted = true;
     super.onStartRecognitionClick();
     this.setTranscriptText('');
     this.initRecognition();
@@ -52,13 +54,22 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
 
   public onRecognitionResult(blob: any): void {
     this.convertBlobToBase64(blob, (data) => {
+      const googleConfig = {
+        encoding: 'WEBM_OPUS',
+        sampleRateHertz: 48000,
+        languageCode: AppConfig.appSettings.language,
+        enableWordTimeOffsets: false,
+        profanityFilter: false,
+        enableSpokenPunctuation: false,
+      };
+
+      if (this.options) {
+        googleConfig.profanityFilter = this.options.isBanProfanity;
+        googleConfig.enableSpokenPunctuation = this.options.isAllowPunctuation;
+      }
+
       let postBody = {
-        config: {
-          encoding: 'WEBM_OPUS',
-          sampleRateHertz: 48000,
-          languageCode: AppConfig.appSettings.language,
-          enableWordTimeOffsets: false,
-        },
+        config: googleConfig,
         audio: {
           content: `${data}`,
         },
@@ -93,6 +104,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
   }
 
   public onStopRecognitionClick(): void {
+    this.isStarted = false;
     this.mediaRecorder.stop();
 
     this.mediaRecorder.ondataavailable = async (event: BlobEvent) => {
@@ -107,6 +119,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent imple
   //#region FUNCTIONS
 
   public initRecognition(): void {
+    if (!this.isStarted) return;
     (this.pTranscript as any).nativeElement.innerText = '';
     this.mediaRecorder = null;
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream: MediaStream) => {
