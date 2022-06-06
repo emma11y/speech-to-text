@@ -91,10 +91,10 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
         interim_results: AppConfig.appSettings.interimResults,
       };
 
-      if (this.options) {
+      /*  if (this.options) {
         liveTranscriptionOptions.profanity_filter = this.options.isBanProfanity;
         liveTranscriptionOptions.punctuate = this.options.isAllowPunctuation;
-      }
+      }*/
 
       this.socket = new WebSocket('wss://api.deepgram.com/v1/listen?' + queryString.stringify(liveTranscriptionOptions), [
         'token',

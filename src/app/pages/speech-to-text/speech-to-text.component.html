@@ -38,7 +38,7 @@
         </div>
       </form>
     </div>
-    <div class="col speech-to-text-component-options">
+    <!--  <div class="col speech-to-text-component-options">
       <div class="speech-to-text-component-options-group">
         <input type="checkbox" id="chkAllowProfanity" name="isAllowProfanity" [(ngModel)]="options.isAllowProfanity" /><label
           for="chkAllowProfanity"
@@ -57,28 +57,33 @@
           >Mettre les ponctuations</label
         >
       </div>
-    </div>
+    </div>-->
   </div>
   <div class="row mx-5 my-3">
     <label for="txtTextToSpeech" class="p-0">Texte à vocaliser</label>
     <textarea id="txtTextToSpeech" rows="5" [(ngModel)]="textToSpeech"></textarea>
   </div>
   <div class="row w-50 m-auto">
-    <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">Démarrer</button>
-    <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">Arrêter</button>
+    <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">
+      Démarrer
+      <i class="fas fa-microphone"></i>
+    </button>
+    <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">
+      Arrêter<i class="fas fa-microphone-slash"></i>
+    </button>
   </div>
   <div class="row mt-5">
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMozillaEnabled">
-      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-mozilla>
+      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech"></app-speech-to-text-mozilla>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isGoogleEnabled">
-      <app-speech-to-text-google [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-google>
+      <app-speech-to-text-google [textToSpeech]="textToSpeech"></app-speech-to-text-google>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMicrosoftEnabled">
-      <app-speech-to-text-microsoft [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-microsoft>
+      <app-speech-to-text-microsoft [textToSpeech]="textToSpeech"></app-speech-to-text-microsoft>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isDeepgramEnabled">
-      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech" [options]="options"></app-speech-to-text-deepgram>
+      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech"></app-speech-to-text-deepgram>
     </div>
   </div>
 </div>

@@ -59,14 +59,14 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent {
         sampleRateHertz: 48000,
         languageCode: AppConfig.appSettings.language,
         enableWordTimeOffsets: false,
-        profanityFilter: false,
-        enableSpokenPunctuation: false,
+        //profanityFilter: false,
+        //enableSpokenPunctuation: false,
       };
 
-      if (this.options) {
+      /*  if (this.options) {
         googleConfig.profanityFilter = this.options.isBanProfanity;
         googleConfig.enableSpokenPunctuation = this.options.isAllowPunctuation;
-      }
+      }*/
 
       let postBody = {
         config: googleConfig,
@@ -79,14 +79,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent {
       xhr.open('POST', `https://speech.googleapis.com/v1/speech:recognize?key=${AppConfig.appSettings.google.apiKey}`, true);
       xhr.onload = () => {
         let response = JSON.parse(xhr.responseText);
-        if (
-          response &&
-          response.results &&
-          response.results[0] &&
-          response.results[0].alternatives &&
-          response.results[0].alternatives[0] &&
-          response.results[0].alternatives[0].transcript
-        ) {
+        if (response && response.results[0].alternatives[0].transcript) {
           this.transcript = response.results[0].alternatives[0].transcript;
           this.setTranscriptText(this.transcript);
         }

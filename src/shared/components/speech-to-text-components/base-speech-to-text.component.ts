@@ -6,13 +6,13 @@ import { clone, isEqual } from 'lodash';
 @Directive()
 export class BaseSpeechToTextComponent implements OnInit {
   @Input() public textToSpeech: string = '';
-  @Input() public options: SpeechToTextOptions = new SpeechToTextOptions();
+  //@Input() public options: SpeechToTextOptions = new SpeechToTextOptions();
 
   public name: string;
   public transcript: string = '';
   public resultSpeechToText: number = 0;
 
-  public oldOptions: SpeechToTextOptions = new SpeechToTextOptions();
+  //  public oldOptions: SpeechToTextOptions = new SpeechToTextOptions();
 
   @ViewChild('pTranscript', { static: true }) pTranscript: HTMLElement | undefined;
 
@@ -21,10 +21,10 @@ export class BaseSpeechToTextComponent implements OnInit {
   public ngOnInit(): void {}
 
   public ngDoCheck(): void {
-    if (!isEqual(this.oldOptions, this.options)) {
+    /* if (!isEqual(this.oldOptions, this.options)) {
       this.initRecognition();
       this.oldOptions = clone(this.options);
-    }
+    }*/
   }
 
   protected initRecognition(): void {

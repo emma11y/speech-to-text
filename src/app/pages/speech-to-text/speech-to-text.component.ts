@@ -22,7 +22,7 @@ export class SpeechToTextComponent implements OnInit {
   public prefilledTexts: PrefilledTextDto[] = [];
   public selectedPrefilledText: PrefilledTextDto;
 
-  public options: SpeechToTextOptions = new SpeechToTextOptions();
+  //public options: SpeechToTextOptions = new SpeechToTextOptions();
 
   constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
     this.prefilledTexts = prefilledTextsService.getItems();

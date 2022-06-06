@@ -7,12 +7,17 @@
   },
   {
     "id": 1,
-    "title": "Episode VI : Le Retour du Jedi",
-    "text": "Luke Skywalker est retourné parmi les siens sur la planète Tatooine pour tenter d'arracher son ami Han Solo aux griffes de l'ignoble Jabba le Hutt. Luke ne peut pas savoir que l'Empire Galactique a commencé à construire en secret une nouvelle station spatiale blindée bien plus puissante et terrifiante que la première Etoile de la Mort. Quand cette arme absolue sera achevée, ce sera la fin du petit groupe de résistants qui luttent pour ramener la liberté dans la galaxie..."
+    "title": "Présentation",
+    "text": "Bonjour, je m'appelle Emmanuelle et je suis développeuse chez Dcube. Dcube est un cabinet de conseil IT spécialisé dans le développement, le cloud, l'IA, la BI et la data. Mes stacks préférés sont C# .NET et Angular. Le bug que je rencontre régulièrement est un problème de timeout. Je m'intéresse également aux aspects de l'intelligence artificielle notamment le Speech-To-Text, thème qu'on va aborder aujourd'hui. Etant sourde, je lutte chaque jour pour l'accessiblité. Dans mon monde idéal, tout doit accessible aussi bien dans la vraie vie que dans le Web."
   },
   {
     "id": 2,
-    "title": "Les trois lois d'Asimov",
-    "text": "Loi numéro 1 : un robot ne peut porter atteinte à un être humain ni, restant passif, permettre qu'un être humain soit exposé au danger ; Loi numéro 2 : un robot doit obéir aux ordres que lui donne un être humain, sauf si de tels ordres entrent en conflit avec la première loi ; Loi numéro 3 : un robot doit protéger son existence tant que cette protection n'entre pas en conflit avec la première ou la deuxième loi."
+    "title": "Introduction au RGAA",
+    "text": "Les services publics numériques et certains services privés ont l’obligation d’être accessibles de façon équivalente à tout citoyen, qu’il soit ou non en situation de handicap (visuel, auditif, moteur, trouble dys…). Un service numérique accessible est plus facile à utiliser pour les personnes handicapées et de meilleure qualité pour tous. Pour faciliter la mise en œuvre de l’accessibilité numérique, la DINUM édite depuis 2009 le référentiel général d’amélioration de l’accessibilité – RGAA, créé pour mettre en œuvre l’article 47 de la loi handicap de 2005 et son décret d’application actualisé en 2019. Il fait régulièrement l’objet de nouvelles versions et mises à jour pour s’adapter aux évolutions du Web mais aussi aux changements de normes et réglementations."
+  },
+  {
+    "id": 3,
+    "title": "Langage non ordinaire",
+    "text": "Un collègue de l'entreprise Dcube, Samuel, rencontre souvent des problèmes de timeout et il n'est pas le seul. 3,4,5 personnes de l'équipe également. Seule Emmanuelle est arrivée à réussir ses exercices. Leur PO tèj souvent ses US et réalise des tool-in-actions. Samuel et Emmanuelle ont également un point commun, ils ont tous les 2 deux animaux : une chienne et une chatte. Emmanuelle déteste les homonymes surtout quand elle essaie de comprendre en lisant sur les lèvres : \"le ver vert va vers le verre vert\"."
   }
 ]

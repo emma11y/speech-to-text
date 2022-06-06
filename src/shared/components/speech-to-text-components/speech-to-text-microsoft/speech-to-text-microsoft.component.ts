@@ -83,8 +83,6 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
         return;
     }
 
-    console.log('event', event.result);
-
     if (this.privOffset === 0) {
       this.privOffset = event.result.offset;
     }
@@ -108,20 +106,17 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
   public initRecognition(): void {
     const speechConfig = SpeechConfig.fromSubscription(AppConfig.appSettings.microsoft.apiKey, AppConfig.appSettings.microsoft.location);
     speechConfig.speechRecognitionLanguage = AppConfig.appSettings.language;
-    speechConfig.setProperty(ForceDictationPropertyName, 'true');
-    if (this.options) {
+
+    /*    if (this.options) {
       speechConfig.setProfanity(this.options.isAllowProfanity ? ProfanityOption.Raw : ProfanityOption.Masked);
       if (this.options.isAllowPunctuation) {
         speechConfig.setProperty(ForceDictationPropertyName, 'true');
       } else {
         speechConfig.setProperty(ForceDictationPropertyName, 'false');
       }
-
-      console.log(ForceDictationPropertyName, speechConfig.getProperty(ForceDictationPropertyName));
-    }
+    }*/
 
     this.recognizer = new SpeechRecognizer(speechConfig);
-    console.log(this.recognizer.properties);
     this.recognizer.recognizing = (sender: Recognizer, event: SpeechRecognitionEventArgs) => this.onRecognitionResult(event);
   }
 }

@@ -1,4 +1,13 @@
 .speech-to-text-component {
+  h2 {
+    text-align: left;
+  }
+
+  i {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+
   &-checkbox {
     margin-right: 15px;
     display: inline-flex;
