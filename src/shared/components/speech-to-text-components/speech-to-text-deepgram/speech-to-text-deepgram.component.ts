@@ -70,12 +70,13 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
   }
 
   public onStopRecognitionClick(): void {
+    this.transcript = this.transcriptFinal;
     this.isStarted = false;
+
+    this.compareText();
+
     this.mediaRecorder.stop();
     this.socket.close();
-    //this.compareText();
-    this.resultSpeechToText = getResultAfterCompareText(this.textToSpeech, this.transcript);
-    console.log(this.resultSpeechToText, this.textToSpeech, this.transcript);
   }
   //#endregion
 
