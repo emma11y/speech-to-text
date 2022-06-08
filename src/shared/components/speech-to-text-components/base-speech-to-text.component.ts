@@ -1,6 +1,6 @@
 import { SpeechToTextOptions } from '@models/speech-to-text-options';
 import { Directive, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { compareText as getResultAfterCompareText } from '@shared/utilities/string.utility';
+import { getResultAfterCompareText } from '@shared/utilities/string.utility';
 import { clone, isEqual } from 'lodash';
 
 @Directive()

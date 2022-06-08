@@ -7,6 +7,7 @@ import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
 import * as queryString from 'query-string';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
+import { getResultAfterCompareText } from '@shared/utilities/string.utility';
 
 @Component({
   selector: 'app-speech-to-text-deepgram',
@@ -72,7 +73,9 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
     this.isStarted = false;
     this.mediaRecorder.stop();
     this.socket.close();
-    this.compareText();
+    //this.compareText();
+    this.resultSpeechToText = getResultAfterCompareText(this.textToSpeech, this.transcript);
+    console.log(this.resultSpeechToText, this.textToSpeech, this.transcript);
   }
   //#endregion
 

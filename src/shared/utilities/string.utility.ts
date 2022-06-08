@@ -6,7 +6,7 @@ export function isNullOrEmpty(value: string | number): boolean {
   return value === undefined || value === null || value === '' || value === 'null';
 }
 
-export function compareText(text1: string, text2: string): number {
+export function getResultAfterCompareText(text1: string, text2: string): number {
   if (isNullOrEmpty(text1)) return 0;
 
   text1 = text1.replace('.', '').replace(',', '').replace(':', '');
