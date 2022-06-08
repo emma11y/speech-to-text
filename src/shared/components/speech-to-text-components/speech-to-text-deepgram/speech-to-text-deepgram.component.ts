@@ -48,10 +48,11 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
   //#region EVENTS
   public onStartRecognitionClick(): void {
     this.isStarted = true;
-    super.onStartRecognitionClick();
     this.setTranscriptText('');
     this.start = 0;
     this.transcriptFinal = '';
+
+    super.onStartRecognitionClick();
     this.initRecognition();
   }
 
@@ -69,9 +70,9 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
 
   public onStopRecognitionClick(): void {
     this.isStarted = false;
-    this.compareText();
     this.mediaRecorder.stop();
     this.socket.close();
+    this.compareText();
   }
   //#endregion
 
