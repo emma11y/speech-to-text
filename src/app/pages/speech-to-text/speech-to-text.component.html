@@ -7,8 +7,10 @@
         <fieldset>
           <legend class="title-gp">Activer le Speech-To-Text de :</legend>
           <div class="speech-to-text-component-checkbox">
-            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isMozillaEnabled" id="chkMozilla" />
-            <label for="chkMozilla">Mozilla</label>
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isDeepgramEnabled" id="chkDeepgram" /><label
+              for="chkDeepgram"
+              >Deepgram</label
+            >
           </div>
           <div class="speech-to-text-component-checkbox">
             <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isGoogleEnabled" id="chkGoogle" /><label
@@ -23,13 +25,10 @@
             >
           </div>
           <div class="speech-to-text-component-checkbox">
-            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isDeepgramEnabled" id="chkDeepgram" /><label
-              for="chkDeepgram"
-              >Deepgram</label
-            >
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isMozillaEnabled" id="chkMozilla" />
+            <label for="chkMozilla">Mozilla</label>
           </div>
         </fieldset>
-
         <div *ngIf="prefilledTexts.length > 0" class="speech-to-text-component-select">
           <label for="sPrefilledText">Sélectionner un texte pré-rempli</label>
           <select id="sPrefilledText" (change)="onPrefilledTextChange($event.target.value)">
@@ -73,8 +72,8 @@
     </button>
   </div>
   <div class="row mt-5">
-    <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMozillaEnabled">
-      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech"></app-speech-to-text-mozilla>
+    <div class="col-sm-12 col-md-6 col-lg" *ngIf="isDeepgramEnabled">
+      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech"></app-speech-to-text-deepgram>
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isGoogleEnabled">
       <app-speech-to-text-google [textToSpeech]="textToSpeech"></app-speech-to-text-google>
@@ -82,8 +81,8 @@
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMicrosoftEnabled">
       <app-speech-to-text-microsoft [textToSpeech]="textToSpeech"></app-speech-to-text-microsoft>
     </div>
-    <div class="col-sm-12 col-md-6 col-lg" *ngIf="isDeepgramEnabled">
-      <app-speech-to-text-deepgram [textToSpeech]="textToSpeech"></app-speech-to-text-deepgram>
+    <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMozillaEnabled">
+      <app-speech-to-text-mozilla [textToSpeech]="textToSpeech"></app-speech-to-text-mozilla>
     </div>
   </div>
 </div>
