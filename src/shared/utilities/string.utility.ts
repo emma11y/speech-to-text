@@ -1,3 +1,5 @@
+import { replace } from 'lodash';
+
 export function isNotNullOrEmpty(value: string | number): boolean {
   return value !== undefined && value !== null && value !== '';
 }
@@ -9,7 +11,8 @@ export function isNullOrEmpty(value: string | number): boolean {
 export function getResultAfterCompareText(text1: string, text2: string): number {
   if (isNullOrEmpty(text1)) return 0;
 
-  text1 = text1.replace('.', '').replace(',', '').replace(':', '');
+  // remove all punctuations
+  text1 = text1.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 
   const wordsText1: string[] = text1.toLowerCase().split(' ');
   const totalWords = wordsText1.length;

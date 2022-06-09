@@ -13,11 +13,11 @@
   {
     "id": 2,
     "title": "Introduction au RGAA",
-    "text": "Les services publics numériques et certains services privés ont l’obligation d’être accessibles de façon équivalente à tout citoyen, qu’il soit ou non en situation de handicap (visuel, auditif, moteur, trouble dys…). Un service numérique accessible est plus facile à utiliser pour les personnes handicapées et de meilleure qualité pour tous. Pour faciliter la mise en œuvre de l’accessibilité numérique, la DINUM édite depuis 2009 le référentiel général d’amélioration de l’accessibilité – RGAA, créé pour mettre en œuvre l’article 47 de la loi handicap de 2005 et son décret d’application actualisé en 2019. Il fait régulièrement l’objet de nouvelles versions et mises à jour pour s’adapter aux évolutions du Web mais aussi aux changements de normes et réglementations."
+    "text": "Les services publics numériques et certains services privés ont l'obligation d'être accessibles de façon équivalente à tout citoyen, qu'il soit ou non en situation de handicap (visuel, auditif, moteur, trouble dys...). Un service numérique accessible est plus facile à utiliser pour les personnes handicapées et de meilleure qualité pour tous. Pour faciliter la mise en œuvre de l'accessibilité numérique, la DINUM édite depuis 2009 le référentiel général d'amélioration de l'accessibilité – RGAA, créé pour mettre en œuvre l'article 47 de la loi handicap de 2005 et son décret d'application actualisé en 2019. Il fait régulièrement l'objet de nouvelles versions et mises à jour pour s'adapter aux évolutions du Web mais aussi aux changements de normes et réglementations."
   },
   {
     "id": 3,
     "title": "Langage non ordinaire",
-    "text": "Un collègue de l'entreprise Dcube, Samuel, rencontre souvent des problèmes de timeout et il n'est pas le seul. 3,4,5 personnes de l'équipe également dont Hany. Seule Emmanuelle est arrivée à réussir ses exercices. Leur PO tèj souvent ses US et réalise des tool-in-actions. Samuel et Emmanuelle ont également un point commun, ils ont tous les 2 deux animaux : une chienne et une chatte. Emmanuelle déteste les homonymes surtout quand elle essaie de comprendre en lisant sur les lèvres : \"le ver vert va vers le verre vert\"."
+    "text": "Samuel, développeur au sein de l'entreprise Dcube, rencontre souvent des problèmes de timeout sur les gros traitements des demandes entrantes et il n'est pas le seul. 3,4,5 personnes de l'équipe également dont sa collègue Emmanuelle. Leur PO tèj souvent ses US et réalise des tool-in-actions. Samuel a une chatte qui s'appelle Qwerty. Emmanuelle déteste les homonymes surtout quand elle essaie de comprendre en lisant sur les lèvres : \"le ver vert va vers le verre vert\"."
   }
 ]

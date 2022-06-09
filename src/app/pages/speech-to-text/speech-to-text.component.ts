@@ -4,6 +4,7 @@ import { PrefilledTextsService } from '@core/services/prefilled-texts.service';
 import { Component, OnInit } from '@angular/core';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
+import { getResultAfterCompareText } from '@shared/utilities/string.utility';
 
 @Component({
   selector: 'app-speech-to-text',

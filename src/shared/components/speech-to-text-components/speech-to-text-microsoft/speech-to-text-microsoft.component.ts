@@ -97,6 +97,7 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
   }
 
   public onStopRecognitionClick(): void {
+    this.transcript = this.transcriptFinal;
     this.recognizer.stopContinuousRecognitionAsync();
     this.compareText();
   }
