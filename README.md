@@ -15,7 +15,7 @@ You need to set API keys in app-config.json file
 - Enable [Cloud Speech API](https://console.cloud.google.com/flows/enableapi?apiid=speech.googleapis.com) service
 - Create the [service account](https://cloud.google.com/docs/authentication/getting-started) and set the environment key with GOOGLE_APPLICATION_CREDENTIALS
 
-###Microsoft
+### Microsoft
 
 - Create or use your account on the Azure portal
 - Create the service [Azure Cognitive Services](https://azure.microsoft.com/fr-fr/services/cognitive-services/)
