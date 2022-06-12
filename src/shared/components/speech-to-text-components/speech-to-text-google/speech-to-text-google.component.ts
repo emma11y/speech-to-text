@@ -59,14 +59,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent {
         sampleRateHertz: 48000,
         languageCode: AppConfig.appSettings.language,
         enableWordTimeOffsets: false,
-        //profanityFilter: false,
-        //enableSpokenPunctuation: false,
       };
-
-      /*  if (this.options) {
-        googleConfig.profanityFilter = this.options.isBanProfanity;
-        googleConfig.enableSpokenPunctuation = this.options.isAllowPunctuation;
-      }*/
 
       let postBody = {
         config: googleConfig,

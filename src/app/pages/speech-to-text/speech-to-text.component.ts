@@ -1,10 +1,8 @@
-import { SpeechToTextOptions } from '@shared/models/speech-to-text-options';
 import { PrefilledTextDto } from '@shared/dtos/prefilled-text.dto';
 import { PrefilledTextsService } from '@core/services/prefilled-texts.service';
 import { Component, OnInit } from '@angular/core';
 import { SubjectMessageService } from '@core/services/subject-message.service';
 import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
-import { getResultAfterCompareText } from '@shared/utilities/string.utility';
 
 @Component({
   selector: 'app-speech-to-text',
@@ -22,8 +20,6 @@ export class SpeechToTextComponent implements OnInit {
 
   public prefilledTexts: PrefilledTextDto[] = [];
   public selectedPrefilledText: PrefilledTextDto;
-
-  //public options: SpeechToTextOptions = new SpeechToTextOptions();
 
   constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
     this.prefilledTexts = prefilledTextsService.getItems();

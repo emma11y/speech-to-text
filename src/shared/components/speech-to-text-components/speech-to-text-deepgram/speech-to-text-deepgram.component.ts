@@ -7,7 +7,10 @@ import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
 import * as queryString from 'query-string';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
-import { getResultAfterCompareText } from '@shared/utilities/string.utility';
+
+// Documentation : https://dev.to/deepgram/get-live-speech-transcriptions-in-your-browser-18d2
+// https://developers.deepgram.com/api-reference/
+// https://developers.deepgram.com/sdks-tools/sdks/node-sdk/
 
 @Component({
   selector: 'app-speech-to-text-deepgram',
@@ -89,17 +92,11 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
         mimeType: 'audio/webm',
       });
 
-      // https://www.twitch.tv/videos/1260139238
       const liveTranscriptionOptions: LiveTranscriptionOptions = {
         language: 'fr',
         version: 'latest',
         interim_results: AppConfig.appSettings.interimResults,
       };
-
-      /*  if (this.options) {
-        liveTranscriptionOptions.profanity_filter = this.options.isBanProfanity;
-        liveTranscriptionOptions.punctuate = this.options.isAllowPunctuation;
-      }*/
 
       this.socket = new WebSocket('wss://api.deepgram.com/v1/listen?' + queryString.stringify(liveTranscriptionOptions), [
         'token',

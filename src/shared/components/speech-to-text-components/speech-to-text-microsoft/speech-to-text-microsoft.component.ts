@@ -3,7 +3,6 @@ import { Component, NgZone } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
-  ProfanityOption,
   Recognizer,
   ResultReason,
   SpeechConfig,
@@ -15,7 +14,6 @@ import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum'
 import { SubjectMessage } from '@shared/models/subject-message';
 import { filter } from 'rxjs/operators';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
-import { ForceDictationPropertyName } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common.speech/Exports';
 
 //https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
@@ -107,16 +105,6 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
   public initRecognition(): void {
     const speechConfig = SpeechConfig.fromSubscription(AppConfig.appSettings.microsoft.apiKey, AppConfig.appSettings.microsoft.location);
     speechConfig.speechRecognitionLanguage = AppConfig.appSettings.language;
-
-    /*    if (this.options) {
-      speechConfig.setProfanity(this.options.isAllowProfanity ? ProfanityOption.Raw : ProfanityOption.Masked);
-      if (this.options.isAllowPunctuation) {
-        speechConfig.setProperty(ForceDictationPropertyName, 'true');
-      } else {
-        speechConfig.setProperty(ForceDictationPropertyName, 'false');
-      }
-    }*/
-
     this.recognizer = new SpeechRecognizer(speechConfig);
     this.recognizer.recognizing = (sender: Recognizer, event: SpeechRecognitionEventArgs) => this.onRecognitionResult(event);
   }
