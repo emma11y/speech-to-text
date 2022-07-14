@@ -1,4 +1,4 @@
-import { Directive, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Directive, Input, NgZone, OnInit } from '@angular/core';
 import { getResultAfterCompareText } from '@shared/utilities/string.utility';
 
 @Directive()
@@ -8,8 +8,7 @@ export class BaseSpeechToTextComponent implements OnInit {
   public name: string;
   public transcript: string = '';
   public resultSpeechToText: number = 0;
-
-  @ViewChild('pTranscript', { static: true }) pTranscript: HTMLElement | undefined;
+  public finalText: string = '';
 
   constructor(private _ngZone: NgZone) {}
 
@@ -19,6 +18,7 @@ export class BaseSpeechToTextComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
   protected onStartRecognitionClick(): void {
+    this.finalText = '';
     this.resultSpeechToText = 0;
   }
 
@@ -36,6 +36,6 @@ export class BaseSpeechToTextComponent implements OnInit {
   }
 
   protected setTranscriptText(text: string): void {
-    (this.pTranscript as any).nativeElement.innerText = text;
+    this.finalText = text;
   }
 }

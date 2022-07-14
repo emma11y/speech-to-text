@@ -104,11 +104,11 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
       ]);
 
       this.socket.onopen = () => {
-        this.mediaRecorder.addEventListener('dataavailable', async (event) => {
+        this.mediaRecorder.ondataavailable = async (event: BlobEvent) => {
           if (event.data.size > 0 && this.socket.readyState === 1) {
             this.socket.send(event.data);
           }
-        });
+        };
 
         this.mediaRecorder.start(0.25);
       };

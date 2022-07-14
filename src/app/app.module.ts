@@ -5,10 +5,12 @@ import { SharedModule } from 'src/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
+import { DeepgramComponent } from './pages/example-article/deepgram/deepgram.component';
 import { SpeechToTextComponent } from './pages/speech-to-text/speech-to-text.component';
+import { GoogleComponent } from './pages/example-article/google/google.component';
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, SpeechToTextComponent],
+  declarations: [AppComponent, LayoutComponent, SpeechToTextComponent, DeepgramComponent, GoogleComponent],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
   providers: [
     {

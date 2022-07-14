@@ -1,0 +1,15 @@
+<div class="google-speech-to-text-component">
+  <h1>Google</h1>
+  <div class="google-speech-to-text-component-buttons">
+    <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">
+      Démarrer
+      <i class="fas fa-microphone"></i>
+    </button>
+    <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">
+      Arrêter<i class="fas fa-microphone-slash"></i>
+    </button>
+  </div>
+  <div class="google-speech-to-text-component-content">
+    {{ transcript }}
+  </div>
+</div>

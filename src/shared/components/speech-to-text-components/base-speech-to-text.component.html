@@ -1,5 +1,5 @@
 <div class="base-speech-to-text-component">
   <h2>{{ name }}</h2>
-  <div class="row m-4" #pTranscript></div>
+  <div class="row m-4">{{ finalText }}</div>
   <div class="row d-block text-center mb-5" *ngIf="textToSpeech">{{ resultSpeechToText }} % de réussite</div>
 </div>
