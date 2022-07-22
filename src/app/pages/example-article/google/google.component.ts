@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AppConfig } from '@core/app-config';
 
@@ -9,11 +9,11 @@ import { AppConfig } from '@core/app-config';
 })
 export class GoogleComponent implements OnInit {
   public isRecording: boolean = false;
-  public transcript: string;
+  public transcript: string = '';
 
   private mediaRecorder: MediaRecorder;
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private _ngZone: NgZone) {
     titleService.setTitle('Google Speech-To-Text');
   }
 
@@ -49,10 +49,12 @@ export class GoogleComponent implements OnInit {
       let xhr = new XMLHttpRequest();
       xhr.open('POST', `https://speech.googleapis.com/v1/speech:recognize?key=${AppConfig.appSettings.google.apiKey}`, true);
       xhr.onload = () => {
-        let response = JSON.parse(xhr.responseText);
-        if (response && response.results[0].alternatives[0].transcript) {
-          this.transcript = response.results[0].alternatives[0].transcript;
-        }
+        this._ngZone.run(() => {
+          let response = JSON.parse(xhr.responseText);
+          if (response && response.results[0].alternatives[0].transcript) {
+            this.transcript = response.results[0].alternatives[0].transcript;
+          }
+        });
       };
 
       xhr.onerror = () => {
@@ -88,13 +90,13 @@ export class GoogleComponent implements OnInit {
     });
   }
 
-  private convertBlobToBase64(blob: Blob, cb: any): void {
+  private convertBlobToBase64(blob: Blob, callBack: any): void {
     let reader = new FileReader();
 
     reader.onloadend = () => {
       let dataUrl = reader.result;
       let base64 = dataUrl.toString().split(',')[1];
-      cb(base64);
+      callBack(base64);
     };
 
     reader.onerror = (err) => {
