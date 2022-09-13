@@ -1,32 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AppConfig } from '@core/app-config';
-import { Component, NgZone } from '@angular/core';
-import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 declare var webkitSpeechRecognition: any;
 
 @Component({
-  selector: 'app-speech-to-text-mozilla',
-  templateUrl: '../base-speech-to-text.component.html',
-  styleUrls: ['../base-speech-to-text.component.scss'],
+  selector: 'app-mozilla',
+  templateUrl: './mozilla.component.html',
+  styleUrls: ['./mozilla.component.scss'],
 })
-export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent {
+export class MozillaComponent implements OnInit {
   private recognition: any;
 
-  constructor(ngZone: NgZone) {
-    super(ngZone);
-  }
+  public transcript: string = '';
+  public isRecording = false;
 
+  constructor(titleService: Title) {
+    titleService.setTitle('Mozilla Speech-To-Text');
+  }
   //#region LIFE CYCLES
   public ngOnInit(): void {
-    this.name = 'Mozilla';
     this.initRecognition();
   }
+
   //#endregion
 
   //#region EVENTS
   public onStartRecognitionClick(): void {
-    super.onStartRecognitionClick();
-    this.setTranscriptText('');
+    this.transcript = '';
+    this.isRecording = true;
     this.recognition.start();
   }
 
@@ -35,13 +37,11 @@ export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent {
       .map((result: any) => result[0])
       .map((result: any) => result.transcript)
       .join('');
-
-    this.setTranscriptText(this.transcript);
   }
 
   public onStopRecognitionClick(): void {
+    this.isRecording = false;
     this.recognition.stop();
-    this.compareText();
   }
   //#endregion
 
@@ -51,6 +51,7 @@ export class SpeechToTextMozillaComponent extends BaseSpeechToTextComponent {
     this.recognition.lang = AppConfig.appSettings.language;
     this.recognition.continuous = true;
     this.recognition.interimResults = AppConfig.appSettings.interimResults;
+
     this.recognition.addEventListener('result', (e: any) => this.onRecognitionResult(e));
   }
   //#endregion

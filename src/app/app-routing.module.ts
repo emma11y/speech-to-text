@@ -1,3 +1,5 @@
+import { MozillaComponent } from './pages/example-article/mozilla/mozilla.component';
+import { MicrosoftComponent } from './pages/example-article/microsoft/microsoft.component';
 import { DeepgramComponent } from './pages/example-article/deepgram/deepgram.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -21,6 +23,14 @@ const routes: Routes = [
       {
         path: 'google',
         component: GoogleComponent,
+      },
+      {
+        path: 'microsoft',
+        component: MicrosoftComponent,
+      },
+      {
+        path: 'mozilla',
+        component: MozillaComponent,
       },
     ],
   },

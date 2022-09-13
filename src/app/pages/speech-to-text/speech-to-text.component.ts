@@ -1,8 +1,9 @@
+import { SpeechToTextMozillaComponent } from '@shared/components/speech-to-text-components/speech-to-text-mozilla/speech-to-text-mozilla.component';
+import { SpeechToTextDeepgramComponent } from '@shared/components/speech-to-text-components/speech-to-text-deepgram/speech-to-text-deepgram.component';
+import { SpeechToTextGoogleComponent } from '@shared/components/speech-to-text-components/speech-to-text-google/speech-to-text-google.component';
 import { PrefilledTextDto } from '@shared/dtos/prefilled-text.dto';
 import { PrefilledTextsService } from '@core/services/prefilled-texts.service';
-import { Component, OnInit } from '@angular/core';
-import { SubjectMessageService } from '@core/services/subject-message.service';
-import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-speech-to-text',
@@ -21,7 +22,12 @@ export class SpeechToTextComponent implements OnInit {
   public prefilledTexts: PrefilledTextDto[] = [];
   public selectedPrefilledText: PrefilledTextDto;
 
-  constructor(private readonly _subjectMessageService: SubjectMessageService, prefilledTextsService: PrefilledTextsService) {
+  @ViewChild('Deepgram') public deepgram: SpeechToTextDeepgramComponent;
+  @ViewChild('Google') public google: SpeechToTextGoogleComponent;
+  @ViewChild('Microsoft') public microsoft: SpeechToTextGoogleComponent;
+  @ViewChild('Mozilla') public mozilla: SpeechToTextMozillaComponent;
+
+  constructor(prefilledTextsService: PrefilledTextsService) {
     this.prefilledTexts = prefilledTextsService.getItems();
   }
 
@@ -33,18 +39,18 @@ export class SpeechToTextComponent implements OnInit {
   public onStartRecognitionClick(event: any): void {
     this.isRecording = true;
 
-    if (this.isMozillaEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MOZILLA);
-    if (this.isMicrosoftEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_MICROSOFT);
-    if (this.isGoogleEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_GOOGLE);
-    if (this.isDeepgramEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.START_DEEPGRAM);
+    if (this.isMozillaEnabled) this.mozilla.onStartRecognitionClick();
+    if (this.isMicrosoftEnabled) this.microsoft.onStartRecognitionClick();
+    if (this.isGoogleEnabled) this.google.onStartRecognitionClick();
+    if (this.isDeepgramEnabled) this.deepgram.onStartRecognitionClick();
   }
 
   public onStopRecognitionClick(event: any): void {
     this.isRecording = false;
-    if (this.isMozillaEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.STOP_MOZILLA);
-    if (this.isMicrosoftEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.STOP_MICROSOFT);
-    if (this.isGoogleEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.STOP_GOOGLE);
-    if (this.isDeepgramEnabled) this._subjectMessageService.next(SubjectMessageTypeEnum.STOP_DEEPGRAM);
+    if (this.isMozillaEnabled) this.mozilla.onStopRecognitionClick();
+    if (this.isMicrosoftEnabled) this.microsoft.onStopRecognitionClick();
+    if (this.isGoogleEnabled) this.google.onStopRecognitionClick();
+    if (this.isDeepgramEnabled) this.deepgram.onStopRecognitionClick();
   }
 
   public onPrefilledTextChange(id: string): void {

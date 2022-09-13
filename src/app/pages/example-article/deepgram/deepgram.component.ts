@@ -13,7 +13,7 @@ export class DeepgramComponent implements OnInit {
   public isRecording: boolean = false;
   public textTranscripted: string;
   public transcript: string;
-  public transcriptFinal: string;
+  public finalTranscript: string;
 
   private mediaRecorder: MediaRecorder;
   private socket: WebSocket;
@@ -31,7 +31,7 @@ export class DeepgramComponent implements OnInit {
   public onStartRecognitionClick(): void {
     this.textTranscripted = '';
     this.transcript = '';
-    this.transcriptFinal = '';
+    this.finalTranscript = '';
 
     this.start = 0;
     this.isRecording = true;
@@ -45,15 +45,15 @@ export class DeepgramComponent implements OnInit {
 
     if (data.start !== this.start) {
       this.start = data.start;
-      this.transcriptFinal += `${this.transcript} `;
+      this.finalTranscript += `${this.transcript} `;
     }
 
     this.transcript = data.channel.alternatives[0].transcript;
-    this.textTranscripted = this.transcriptFinal + this.transcript;
+    this.textTranscripted = this.finalTranscript + this.transcript;
   }
 
   public onStopRecognitionClick(): void {
-    this.textTranscripted = this.transcriptFinal;
+    this.textTranscripted = this.finalTranscript;
     this.isRecording = false;
 
     this.mediaRecorder.stop();

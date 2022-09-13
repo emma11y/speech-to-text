@@ -1,9 +1,5 @@
-import { SubjectMessageService } from '@core/services/subject-message.service';
 import { Component, NgZone } from '@angular/core';
 import { AppConfig } from '@core/app-config';
-import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
-import { SubjectMessage } from '@shared/models/subject-message';
-import { filter } from 'rxjs/operators';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
 // https://github.com/googleapis/nodejs-speech
@@ -19,23 +15,8 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent {
   private mediaRecorder: MediaRecorder;
   private isStarted: boolean = false;
 
-  constructor(ngZone: NgZone, private _subjectMessageService: SubjectMessageService) {
+  constructor(ngZone: NgZone) {
     super(ngZone);
-
-    this._subjectMessageService.subject
-      .pipe(
-        filter(
-          (subjectMessage: SubjectMessage) =>
-            subjectMessage.type === SubjectMessageTypeEnum.START_GOOGLE || subjectMessage.type === SubjectMessageTypeEnum.STOP_GOOGLE
-        )
-      )
-      .subscribe((subjectMessage: SubjectMessage) => {
-        if (subjectMessage.type === SubjectMessageTypeEnum.START_GOOGLE) {
-          this.onStartRecognitionClick();
-        } else {
-          this.onStopRecognitionClick();
-        }
-      });
   }
 
   //#region LIFE CYCLES

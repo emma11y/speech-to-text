@@ -1,10 +1,6 @@
 import { AppConfig } from '@core/app-config';
 import { Component, NgZone } from '@angular/core';
 import { LiveTranscriptionOptions } from '@deepgram/sdk/dist/types';
-import { SubjectMessageService } from '@core/services/subject-message.service';
-import { SubjectMessageTypeEnum } from '@shared/enums/subject-message-type.enum';
-import { SubjectMessage } from '@shared/models/subject-message';
-import { filter } from 'rxjs/operators';
 import * as queryString from 'query-string';
 import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 
@@ -20,28 +16,14 @@ import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
 export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
   private isStarted: boolean;
 
-  constructor(ngZone: NgZone, private readonly _subjectMessageService: SubjectMessageService) {
+  constructor(ngZone: NgZone) {
     super(ngZone);
-    this._subjectMessageService.subject
-      .pipe(
-        filter(
-          (subjectMessage: SubjectMessage) =>
-            subjectMessage.type === SubjectMessageTypeEnum.START_DEEPGRAM || subjectMessage.type === SubjectMessageTypeEnum.STOP_DEEPGRAM
-        )
-      )
-      .subscribe((subjectMessage: SubjectMessage) => {
-        if (subjectMessage.type === SubjectMessageTypeEnum.START_DEEPGRAM) {
-          this.onStartRecognitionClick();
-        } else {
-          this.onStopRecognitionClick();
-        }
-      });
   }
 
   private mediaRecorder: MediaRecorder;
   private socket: WebSocket;
   private start: number;
-  private transcriptFinal: string = '';
+  private finalTranscript: string = '';
 
   //#region LIFE CYCLES
   public ngOnInit(): void {
@@ -54,7 +36,7 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
     this.isStarted = true;
     this.setTranscriptText('');
     this.start = 0;
-    this.transcriptFinal = '';
+    this.finalTranscript = '';
 
     super.onStartRecognitionClick();
     this.initRecognition();
@@ -65,15 +47,15 @@ export class SpeechToTextDeepgramComponent extends BaseSpeechToTextComponent {
 
     if (data.start !== this.start) {
       this.start = data.start;
-      this.transcriptFinal += `${this.transcript} `;
+      this.finalTranscript += `${this.transcript} `;
     }
 
     this.transcript = data.channel.alternatives[0].transcript;
-    this.setTranscriptText(this.transcriptFinal + this.transcript);
+    this.setTranscriptText(this.finalTranscript + this.transcript);
   }
 
   public onStopRecognitionClick(): void {
-    this.transcript = this.transcriptFinal;
+    this.transcript = this.finalTranscript;
     this.isStarted = false;
 
     this.compareText();

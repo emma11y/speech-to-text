@@ -1,5 +1,6 @@
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AppConfig } from '@core/app-config';
-import { Component, NgZone } from '@angular/core';
 import {
   CancellationDetails,
   CancellationReason,
@@ -9,37 +10,40 @@ import {
   SpeechRecognitionEventArgs,
   SpeechRecognizer,
 } from 'microsoft-cognitiveservices-speech-sdk';
-import { BaseSpeechToTextComponent } from '../base-speech-to-text.component';
-
-//https://docs.microsoft.com/fr-fr/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=windowsinstall&pivots=programming-language-nodejs
 
 @Component({
-  selector: 'app-speech-to-text-microsoft',
-  templateUrl: '../base-speech-to-text.component.html',
-  styleUrls: ['../base-speech-to-text.component.scss'],
+  selector: 'app-microsoft',
+  templateUrl: './microsoft.component.html',
+  styleUrls: ['./microsoft.component.scss'],
 })
-export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
+export class MicrosoftComponent implements OnInit {
   private recognizer: SpeechRecognizer;
-  private prevOffset: number = 0;
   private finalTranscript: string = '';
+  private prevOffset = 0;
+  private transcript: string = '';
 
-  constructor(ngZone: NgZone) {
-    super(ngZone);
+  public isRecording: boolean = false;
+  public textTranscripted: string = '';
+
+  constructor(private titleService: Title) {
+    titleService.setTitle('Microsoft Speech-To-Text');
   }
 
   //#region LIFE CYCLES
   public ngOnInit(): void {
-    this.name = 'Microsoft';
     this.initRecognition();
   }
   //#endregion
 
   //#region EVENTS
   public onStartRecognitionClick(): void {
-    super.onStartRecognitionClick();
-    this.setTranscriptText('');
-    this.prevOffset = 0;
+    this.textTranscripted = '';
+    this.transcript = '';
     this.finalTranscript = '';
+
+    this.prevOffset = 0;
+    this.isRecording = true;
+
     this.recognizer.startContinuousRecognitionAsync();
   }
 
@@ -73,13 +77,13 @@ export class SpeechToTextMicrosoftComponent extends BaseSpeechToTextComponent {
     }
 
     this.transcript = event.result.text;
-    this.setTranscriptText(this.finalTranscript + this.transcript);
+    this.textTranscripted = this.finalTranscript + this.transcript;
   }
 
   public onStopRecognitionClick(): void {
-    this.transcript = this.finalTranscript + this.transcript;
+    this.isRecording = false;
+    this.textTranscripted = this.finalTranscript + this.transcript;
     this.recognizer.stopContinuousRecognitionAsync();
-    this.compareText();
   }
   //#endregion
 

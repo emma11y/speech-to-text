@@ -8,9 +8,11 @@ import { LayoutComponent } from './layout/layout.component';
 import { DeepgramComponent } from './pages/example-article/deepgram/deepgram.component';
 import { SpeechToTextComponent } from './pages/speech-to-text/speech-to-text.component';
 import { GoogleComponent } from './pages/example-article/google/google.component';
+import { MicrosoftComponent } from './pages/example-article/microsoft/microsoft.component';
+import { MozillaComponent } from './pages/example-article/mozilla/mozilla.component';
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, SpeechToTextComponent, DeepgramComponent, GoogleComponent],
+  declarations: [AppComponent, LayoutComponent, SpeechToTextComponent, DeepgramComponent, GoogleComponent, MicrosoftComponent, MozillaComponent],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
   providers: [
     {
