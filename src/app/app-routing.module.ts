@@ -1,3 +1,4 @@
+import { WhisperComponent } from './pages/example-article/whisper/whisper.component';
 import { MozillaComponent } from './pages/example-article/mozilla/mozilla.component';
 import { MicrosoftComponent } from './pages/example-article/microsoft/microsoft.component';
 import { DeepgramComponent } from './pages/example-article/deepgram/deepgram.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'mozilla',
         component: MozillaComponent,
+      },
+      {
+        path: 'whisper',
+        component: WhisperComponent,
       },
     ],
   },

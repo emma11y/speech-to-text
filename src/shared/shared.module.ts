@@ -3,6 +3,7 @@ import { SpeechToTextGoogleComponent } from './components/speech-to-text-compone
 import { SpeechToTextMozillaComponent } from './components/speech-to-text-components/speech-to-text-mozilla/speech-to-text-mozilla.component';
 import { SpeechToTextMicrosoftComponent } from './components/speech-to-text-components/speech-to-text-microsoft/speech-to-text-microsoft.component';
 import { SpeechToTextDeepgramComponent } from './components/speech-to-text-components/speech-to-text-deepgram/speech-to-text-deepgram.component';
+import { SpeechToTextWhisperComponent } from './components/speech-to-text-components/speech-to-text-whisper/speech-to-text-whisper.component';
 
 // Modules
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,7 @@ const components = [
   SpeechToTextGoogleComponent,
   SpeechToTextMicrosoftComponent,
   SpeechToTextDeepgramComponent,
+  SpeechToTextWhisperComponent,
 ];
 
 const pipes: any = [];

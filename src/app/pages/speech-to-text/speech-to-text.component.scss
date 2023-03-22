@@ -24,7 +24,10 @@
   }
 
   &-options {
+    text-align: end;
+
     &-group {
+      text-align: start;
       label {
         margin-left: 5px;
       }

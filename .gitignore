@@ -47,5 +47,6 @@ Thumbs.db
 *.old
 .angular/cache/*.json
 .angular/cache/babel-webpack/*.json
+.angular/cache/13.3.9/babel-webpack/*.json
 src/settings/app-config.local.json
 *.pack_

@@ -1,4 +1,5 @@
 import { Directive, Input, NgZone, OnInit } from '@angular/core';
+import { Result } from '@core/model/result';
 import { getResultAfterCompareText } from '@shared/utilities/string.utility';
 
 @Directive()
@@ -37,5 +38,9 @@ export class BaseSpeechToTextComponent implements OnInit {
 
   protected setTranscriptText(text: string): void {
     this.finalText = text;
+  }
+
+  get result(): Result {
+    return new Result(this.name, this.finalText, this.resultSpeechToText);
   }
 }

@@ -10,9 +10,19 @@ import { SpeechToTextComponent } from './pages/speech-to-text/speech-to-text.com
 import { GoogleComponent } from './pages/example-article/google/google.component';
 import { MicrosoftComponent } from './pages/example-article/microsoft/microsoft.component';
 import { MozillaComponent } from './pages/example-article/mozilla/mozilla.component';
+import { WhisperComponent } from './pages/example-article/whisper/whisper.component';
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, SpeechToTextComponent, DeepgramComponent, GoogleComponent, MicrosoftComponent, MozillaComponent],
+  declarations: [
+    AppComponent,
+    LayoutComponent,
+    SpeechToTextComponent,
+    DeepgramComponent,
+    GoogleComponent,
+    MicrosoftComponent,
+    MozillaComponent,
+    WhisperComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
   providers: [
     {

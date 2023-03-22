@@ -28,6 +28,10 @@
             <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isMozillaEnabled" id="chkMozilla" />
             <label for="chkMozilla">Mozilla</label>
           </div>
+          <div class="speech-to-text-component-checkbox">
+            <input autocomplete="off" type="checkbox" name="speech-to-text" [(ngModel)]="isWhisperEnabled" id="chkWhisper" />
+            <label for="chkWhisper">Whisper</label>
+          </div>
         </fieldset>
         <div *ngIf="prefilledTexts.length > 0" class="speech-to-text-component-select">
           <label for="sPrefilledText">Sélectionner un texte pré-rempli</label>
@@ -37,8 +41,12 @@
         </div>
       </form>
     </div>
-    <!--  <div class="col speech-to-text-component-options">
-      <div class="speech-to-text-component-options-group">
+    <div class="col speech-to-text-component-options">
+      <button class="btn btn-secondary" [disabled]="isRecording" (click)="onDownloadClick()">
+        Télécharger les transcriptions <i class="fas fa-download"></i>
+      </button>
+
+      <!--<div class="speech-to-text-component-options-group">
         <input type="checkbox" id="chkAllowProfanity" name="isAllowProfanity" [(ngModel)]="options.isAllowProfanity" /><label
           for="chkAllowProfanity"
           >Autoriser les gros mots (uniquement pour Microsoft dont on filtre les gros mots par défaut)</label
@@ -55,19 +63,19 @@
           for="chkPunctuation"
           >Mettre les ponctuations</label
         >
-      </div>
-    </div>-->
+      </div>-->
+    </div>
   </div>
   <div class="row mx-5 my-3">
     <label for="txtTextToSpeech" class="p-0">Texte à vocaliser</label>
     <textarea id="txtTextToSpeech" rows="5" [(ngModel)]="textToSpeech"></textarea>
   </div>
   <div class="row w-50 m-auto">
-    <button class="btn btn-primary" (click)="onStartRecognitionClick($event)" *ngIf="!isRecording">
+    <button class="btn btn-primary" (click)="onStartRecognitionClick()" *ngIf="!isRecording">
       Démarrer
       <i class="fas fa-microphone"></i>
     </button>
-    <button class="btn btn-secondary" (click)="onStopRecognitionClick($event)" *ngIf="isRecording">
+    <button class="btn btn-secondary" (click)="onStopRecognitionClick()" *ngIf="isRecording">
       Arrêter<i class="fas fa-microphone-slash"></i>
     </button>
   </div>
@@ -83,6 +91,9 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg" *ngIf="isMozillaEnabled">
       <app-speech-to-text-mozilla [textToSpeech]="textToSpeech" #Mozilla></app-speech-to-text-mozilla>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg" *ngIf="isWhisperEnabled">
+      <app-speech-to-text-whisper [textToSpeech]="textToSpeech" #Whisper></app-speech-to-text-whisper>
     </div>
   </div>
 </div>

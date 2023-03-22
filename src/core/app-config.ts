@@ -17,4 +17,7 @@ export interface AppSettings {
   deepgram: {
     apiKey: string;
   };
+  whisper: {
+    apiKey: string;
+  };
 }
