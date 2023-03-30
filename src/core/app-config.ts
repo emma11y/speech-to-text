@@ -19,5 +19,6 @@ export interface AppSettings {
   };
   whisper: {
     apiKey: string;
+    language: string;
   };
 }

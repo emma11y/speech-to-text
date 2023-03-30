@@ -13,6 +13,7 @@
     "apiKey": ""
   },
   "whisper": {
-    "apiKey": ""
+    "apiKey": "",
+    "language": "fr"
   }
 }

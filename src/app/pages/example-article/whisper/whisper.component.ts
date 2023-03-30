@@ -49,7 +49,7 @@ export class WhisperComponent implements OnInit {
     data.append('file', file);
     data.append('model', 'whisper-1');
     data.append('response_format', 'text');
-    data.append('language', AppConfig.appSettings.language);
+    data.append('language', 'fr');
 
     let xhr = new XMLHttpRequest();
     xhr.open('POST', `https://api.openai.com/v1/audio/transcriptions`, true);
@@ -57,9 +57,7 @@ export class WhisperComponent implements OnInit {
 
     xhr.onload = () => {
       this._ngZone.run(() => {
-        let response = JSON.parse(xhr.responseText);
-
-        console.log(response);
+        this.transcript = xhr.responseText;
       });
     };
 
