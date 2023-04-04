@@ -7,8 +7,8 @@
   },
   {
     "id": 1,
-    "title": "Présentation",
-    "text": "Bonjour, je m'appelle Emmanuelle et je suis développeuse chez Dcube. Dcube est un cabinet de conseil IT spécialisé dans le développement, le cloud, l'IA, la BI et la data. Mes stacks préférés sont C# .NET et Angular. Le bug que je rencontre régulièrement est un problème de timeout. Je m'intéresse également aux aspects de l'intelligence artificielle notamment le Speech-To-Text, thème qu'on va aborder aujourd'hui. Etant sourde, je lutte chaque jour pour l'accessiblité. Dans mon monde idéal, tout doit accessible aussi bien dans la vraie vie que dans le Web."
+    "title": "Présentation d'Emmanuelle",
+    "text": "Bonjour, je m'appelle Emmanuelle et je suis développeuse chez dcube. Dcube est un cabinet de conseil IT spécialisé dans le développement, le cloud, l'IA, la BI et la data. Mes stacks préférés sont C# .NET et Angular. Le bug que je rencontre régulièrement est un problème de timeout. Je m'intéresse également aux aspects de l'intelligence artificielle notamment le Speech-To-Text, thème qu'on va aborder aujourd'hui. Etant sourde, je lutte chaque jour pour l'accessiblité. Dans mon monde idéal, tout doit accessible aussi bien dans la vraie vie que dans le Web."
   },
   {
     "id": 2,
@@ -24,5 +24,15 @@
     "id": 4,
     "title": "Conjugaison",
     "text": "Annie est arrivée à la maison. Je suis arrivée à la maison. Tu es arrivée à la maison. Il est arrivé à la maison. Elle est arrivé à la maison. Nous, les filles, sommes arrivées à la maison. Vous, les filles, êtes arrivées à la maison. Elles sont arrivées à la maison. Ils sont arrivés à la maison."
+  },
+  {
+    "id": 5,
+    "title": "La Tour Eiffel",
+    "text": "Construite en deux ans par Gustave Eiffel et ses collaborateurs pour l'Exposition universelle de Paris de 1889, célébrant le centenaire de la Révolution française, et initialement nommée « tour de 300 mètres », la Tour Eiffel est devenue le symbole de la capitale française et un site touristique de premier plan : il s’agit du quatrième site culturel français payant le plus visité en 2016, avec 5,9 millions de visiteurs3. Depuis son ouverture au public, elle a accueilli plus de 300 millions de visiteurs."
+  },
+  {
+    "id": 6,
+    "title": "Homonymes",
+    "text": "Le ver vert va vers le verre vert"
   }
 ]
