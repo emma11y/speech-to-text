@@ -26,6 +26,11 @@ You need to set API keys in app-config.json file
 
 You don't need an API key to use Mozilla's Web Speech API.
 
+### Whisper
+
+- Create ou use your account on Open AI
+- Create an API Key
+
 ## Development server
 
 Run `ng serve` or `npm run start` for a dev server. Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
