@@ -1,5 +1,7 @@
 .whisper-speech-to-text-component {
-  &-buttons {
+  &-buttons,
+  &-upload,
+  &-loading {
     margin-top: 2em;
     text-align: center;
   }

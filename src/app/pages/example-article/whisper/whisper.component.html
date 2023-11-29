@@ -9,6 +9,15 @@
       Arrêter<i class="fas fa-microphone-slash"></i>
     </button>
   </div>
+
+  <div class="whisper-speech-to-text-component-upload">
+    <input type="file" (change)="onUploadFile($event)" />
+  </div>
+
+  <div *ngIf="isLoading" class="whisper-speech-to-text-component-loading">
+    <p>En cours de traitement...</p>
+  </div>
+
   <p class="whisper-speech-to-text-component-content">
     {{ transcript }}
   </p>

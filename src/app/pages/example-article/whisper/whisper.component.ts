@@ -8,12 +8,13 @@ import { AppConfig } from '@core/app-config';
   styleUrls: ['./whisper.component.scss'],
 })
 export class WhisperComponent implements OnInit {
+  public isLoading: boolean = false;
   public isRecording: boolean = false;
   public transcript: string = '';
 
   private mediaRecorder: MediaRecorder;
 
-  constructor(private titleService: Title, private _ngZone: NgZone) {
+  constructor(titleService: Title, private _ngZone: NgZone) {
     titleService.setTitle('Whisper Speech-To-Text');
   }
 
@@ -45,27 +46,15 @@ export class WhisperComponent implements OnInit {
       type: blob.type,
     });
 
-    var data = new FormData();
-    data.append('file', file);
-    data.append('model', 'whisper-1');
-    data.append('response_format', 'text');
-    data.append('language', 'fr');
+    await this.sendFileToWhisper(file);
+  }
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', `https://api.openai.com/v1/audio/transcriptions`, true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + AppConfig.appSettings.whisper.apiKey);
+  public async onUploadFile(event: any): Promise<void> {
+    this.transcript = '';
+    this.isLoading = true;
 
-    xhr.onload = () => {
-      this._ngZone.run(() => {
-        this.transcript = xhr.responseText;
-      });
-    };
-
-    xhr.onerror = () => {
-      console.error('Error occurred during Whisper request.');
-    };
-
-    xhr.send(data);
+    const file: File = event.target.files[0];
+    await this.sendFileToWhisper(file);
   }
 
   //#endregion
@@ -83,6 +72,31 @@ export class WhisperComponent implements OnInit {
 
       this.mediaRecorder.start();
     });
+  }
+
+  private async sendFileToWhisper(file: File): Promise<void> {
+    var data = new FormData();
+    data.append('file', file);
+    data.append('model', 'whisper-1');
+    data.append('response_format', 'text');
+    data.append('language', 'fr');
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', `https://api.openai.com/v1/audio/transcriptions`, true);
+    xhr.setRequestHeader('Authorization', 'Bearer ' + AppConfig.appSettings.whisper.apiKey);
+
+    xhr.onload = () => {
+      this._ngZone.run(() => {
+        this.transcript = xhr.responseText;
+        this.isLoading = false;
+      });
+    };
+
+    xhr.onerror = (err: any) => {
+      console.error('Error occurred during Whisper request.', err);
+    };
+
+    xhr.send(data);
   }
 
   //#endregion
