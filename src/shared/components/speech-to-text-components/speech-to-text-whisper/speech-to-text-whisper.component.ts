@@ -11,6 +11,8 @@ export class SpeechToTextWhisperComponent extends BaseSpeechToTextComponent {
   private mediaRecorder: MediaRecorder;
   private isStarted: boolean = false;
 
+  private chunks = [];
+
   constructor(ngZone: NgZone) {
     super(ngZone);
   }
@@ -18,12 +20,13 @@ export class SpeechToTextWhisperComponent extends BaseSpeechToTextComponent {
   //#region LIFE CYCLES
   public ngOnInit(): void {
     this.name = 'Whisper';
-    this.initRecognition();
+    //this.initRecognition();
   }
   //#endregion
 
   //#region EVENTS
   public onStartRecognitionClick(): void {
+    this.chunks = [];
     this.isStarted = true;
     super.onStartRecognitionClick();
     this.setTranscriptText('');
@@ -33,12 +36,6 @@ export class SpeechToTextWhisperComponent extends BaseSpeechToTextComponent {
   public onStopRecognitionClick(): void {
     this.isStarted = false;
     this.mediaRecorder.stop();
-
-    this.mediaRecorder.ondataavailable = async (event: BlobEvent) => {
-      if (event.data.size > 0) {
-        this.onRecognitionResult(event.data);
-      }
-    };
   }
 
   public async onRecognitionResult(blob: Blob): Promise<void> {
@@ -79,13 +76,26 @@ export class SpeechToTextWhisperComponent extends BaseSpeechToTextComponent {
   protected initRecognition(): void {
     if (!this.isStarted) return;
 
-    this.mediaRecorder = null;
+    //this.mediaRecorder = null;
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream: MediaStream) => {
       this.mediaRecorder = new MediaRecorder(stream, {
         mimeType: 'audio/webm',
       });
 
-      this.mediaRecorder.start();
+      this.mediaRecorder.ondataavailable = (event: BlobEvent) => {
+        if (event.data.size > 0) {
+          this.chunks.push(event.data);
+
+          const blob = new Blob(this.chunks, {
+            type: 'audio/webm',
+          });
+
+          this.onRecognitionResult(blob);
+        }
+      };
+
+      //this.mediaRecorder.start();
+      this.mediaRecorder.start(1000);
     });
   }
 
