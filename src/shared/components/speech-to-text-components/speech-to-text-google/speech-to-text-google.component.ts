@@ -94,7 +94,7 @@ export class SpeechToTextGoogleComponent extends BaseSpeechToTextComponent {
         mimeType: 'audio/webm',
       });
 
-      this.mediaRecorder.start();
+      this.mediaRecorder.start(1000);
     });
   }
 

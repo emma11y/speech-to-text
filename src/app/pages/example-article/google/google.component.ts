@@ -86,7 +86,7 @@ export class GoogleComponent implements OnInit {
         mimeType: 'audio/webm',
       });
 
-      this.mediaRecorder.start();
+      this.mediaRecorder.start(1000);
     });
   }
 
